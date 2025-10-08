@@ -1,0 +1,528 @@
+openapi: 3.1.0
+x-stoplight:
+  id: baiqnnwne465m
+info:
+  title: plocadora
+  version: '1.0'
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /classe:
+    post:
+      summary: Create New User
+      operationId: cadastro-classe
+      responses:
+        '201':
+          description: User Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClasseCriada'
+              examples:
+                New User Bob Fellow:
+                  value:
+                    id: 12
+                    firstName: Bob
+                    lastName: Fellow
+                    email: bob.fellow@gmail.com
+                    dateOfBirth: '1996-08-24'
+                    emailVerified: false
+                    createDate: '2020-11-18'
+        '400':
+          description: Missing Required Information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Email Already Taken
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NovaClasse'
+            examples:
+              Create User Bob Fellow:
+                value:
+                  firstName: Bob
+                  lastName: Fellow
+                  email: bob.fellow@gmail.com
+                  dateOfBirth: '1996-08-24'
+        description: Post the necessary fields for the API to create a new user.
+      description: Create a new user.
+    get:
+      summary: ''
+      operationId: get-classes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Classe'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+    parameters: []
+  /ator:
+    post:
+      summary: ''
+      operationId: cadastro-ator
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtorCriado'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NovoAtor'
+      description: Cadastro Ator
+    parameters: []
+    get:
+      summary: ''
+      operationId: get-atores
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ator'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+      description: ''
+  '/ator/{atorId}':
+    parameters:
+      - schema:
+          type: string
+        name: atorId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ator'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+      operationId: get-ator
+    put:
+      summary: ''
+      operationId: put-ator
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ator'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ator'
+    delete:
+      summary: ''
+      operationId: delete-ator
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ator'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+  '/classe/{classeId}':
+    parameters:
+      - schema:
+          type: string
+        name: classeId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classe'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+      operationId: get-classe
+    delete:
+      summary: ''
+      operationId: delete-classe
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classe'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+    put:
+      summary: ''
+      operationId: put-classe
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classe'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Classe'
+  /diretor:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Diretor'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+      operationId: get-diretores
+    post:
+      summary: ''
+      operationId: post-diretor
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiretorCriado'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NovoDiretor'
+  '/diretor/{diretorId}':
+    parameters:
+      - schema:
+          type: string
+        name: diretorId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diretor'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+      operationId: get-diretor
+    put:
+      summary: ''
+      operationId: put-diretor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diretor'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Diretor'
+    delete:
+      summary: ''
+      operationId: delete-diretor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diretor'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+components:
+  schemas:
+    AtorCriado:
+      title: AtorCriado
+      x-stoplight:
+        id: rvtbme15pd1xo
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+    ErroRequisicao:
+      title: ErroRequisicao
+      x-stoplight:
+        id: chhmig0yg8786
+      type: object
+      properties:
+        Status:
+          type: string
+        mensagem:
+          type: string
+    Ator:
+      title: Ator
+      x-stoplight:
+        id: w9pwb9lplbq8a
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+    NovaClasse:
+      title: NovaClasse
+      x-stoplight:
+        id: 0gnnlyfx4mxbk
+      type: object
+      properties:
+        nome:
+          type: string
+        valor:
+          type: number
+          format: double
+        prazoDevolucao:
+          type: string
+    NovoAtor:
+      title: NovoAtor
+      x-stoplight:
+        id: ssqvg9gvfv5v3
+      type: object
+      properties:
+        nome:
+          type: string
+    ClasseCriada:
+      title: ClasseCriada
+      x-stoplight:
+        id: 0m57dfqe4dzuk
+      type: object
+      properties:
+        nome:
+          type: string
+        valor:
+          type: string
+        prazoDevolucao:
+          type: string
+    Classe:
+      title: Classe
+      x-stoplight:
+        id: jwcgtr33a6o41
+      type: object
+      properties:
+        nome:
+          type: string
+        valor:
+          type: number
+          format: double
+        prazoDevolucao:
+          type: string
+    NovoDiretor:
+      title: NovoDiretor
+      x-stoplight:
+        id: vs2zs58i3zvea
+      type: object
+      properties:
+        nome:
+          type: string
+    DiretorCriado:
+      title: DiretorCriado
+      x-stoplight:
+        id: 5yz2fdy60ulo8
+      type: object
+      properties:
+        nome:
+          type: string
+    Diretor:
+      title: Diretor
+      x-stoplight:
+        id: rg3ruybzd55wb
+      type: object
+      properties:
+        nome:
+          type: string

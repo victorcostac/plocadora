@@ -1,61 +1,134 @@
 package com.devweb.plocadora.web.controllers;
 
-
+import com.devweb.plocadora.domain.Diretor;
+import com.devweb.plocadora.services.DiretorService;
 import com.devweb.plocadora.web.api.DiretorApi;
 import com.devweb.plocadora.web.model.DiretorApiModel;
 import com.devweb.plocadora.web.model.DiretorCriadoApiModel;
 import com.devweb.plocadora.web.model.NovoDiretorApiModel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 public class DiretorController implements DiretorApi {
-    /**
-     * @param diretorId (required)
-     * @return
-     */
+
+    private final DiretorService diretorService;
+
     @Override
     public ResponseEntity<DiretorApiModel> deleteDiretor(String diretorId) {
-        return null;
+        try {
+            Long id = Long.parseLong(diretorId);
+            Optional<Diretor> diretorOptional = diretorService.getDiretor(id);
+
+            if (diretorOptional.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            boolean deleted = diretorService.deleteDiretor(id);
+            if (deleted) {
+                Diretor diretor = diretorOptional.get();
+                DiretorApiModel response = new DiretorApiModel();
+                response.setNome(diretor.getNome());
+                return ResponseEntity.ok(response);
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
-    /**
-     * @param diretorId (required)
-     * @return
-     */
     @Override
     public ResponseEntity<DiretorApiModel> getDiretor(String diretorId) {
-        return null;
+        try {
+            Long id = Long.parseLong(diretorId);
+            Optional<Diretor> diretorOptional = diretorService.getDiretor(id);
+
+            if (diretorOptional.isPresent()) {
+                Diretor diretor = diretorOptional.get();
+                DiretorApiModel response = new DiretorApiModel();
+                response.setNome(diretor.getNome());
+                return ResponseEntity.ok(response);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
-    /**
-     * @return
-     */
     @Override
     public ResponseEntity<List<DiretorApiModel>> getDiretores() {
-        return null;
+        try {
+            List<Diretor> diretores = diretorService.getDiretores();
+            List<DiretorApiModel> response = diretores.stream()
+                    .map(diretor -> {
+                        DiretorApiModel model = new DiretorApiModel();
+                        model.setNome(diretor.getNome());
+                        return model;
+                    })
+                    .toList();
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
-    /**
-     * @param novoDiretorApiModel (optional)
-     * @return
-     */
     @Override
     public ResponseEntity<DiretorCriadoApiModel> postDiretor(NovoDiretorApiModel novoDiretorApiModel) {
-        return null;
+        try {
+            if (novoDiretorApiModel == null || novoDiretorApiModel.getNome() == null) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            Diretor diretor = diretorService.createDiretor(novoDiretorApiModel.getNome());
+
+            DiretorCriadoApiModel response = new DiretorCriadoApiModel();
+            response.setNome(diretor.getNome());
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
-    /**
-     * @param diretorId       (required)
-     * @param diretorApiModel (optional)
-     * @return
-     */
     @Override
     public ResponseEntity<DiretorApiModel> putDiretor(String diretorId, DiretorApiModel diretorApiModel) {
-        return null;
+        try {
+            if (diretorApiModel == null || diretorApiModel.getNome() == null) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            Long id = Long.parseLong(diretorId);
+            Optional<Diretor> diretorOptional = diretorService.updateDiretor(id, diretorApiModel.getNome());
+
+            if (diretorOptional.isPresent()) {
+                Diretor diretor = diretorOptional.get();
+                DiretorApiModel response = new DiretorApiModel();
+                response.setNome(diretor.getNome());
+                return ResponseEntity.ok(response);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

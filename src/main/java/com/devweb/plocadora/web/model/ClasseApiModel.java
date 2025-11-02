@@ -23,11 +23,33 @@ import jakarta.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ClasseApiModel {
 
+  private Integer id;
+
   private String nome;
 
   private Double valor;
 
   private String prazoDevolucao;
+
+  public ClasseApiModel id(Integer id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+  */
+  
+  @Schema(name = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("id")
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
   public ClasseApiModel nome(String nome) {
     this.nome = nome;
@@ -98,20 +120,22 @@ public class ClasseApiModel {
       return false;
     }
     ClasseApiModel classe = (ClasseApiModel) o;
-    return Objects.equals(this.nome, classe.nome) &&
+    return Objects.equals(this.id, classe.id) &&
+        Objects.equals(this.nome, classe.nome) &&
         Objects.equals(this.valor, classe.valor) &&
         Objects.equals(this.prazoDevolucao, classe.prazoDevolucao);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(nome, valor, prazoDevolucao);
+    return Objects.hash(id, nome, valor, prazoDevolucao);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ClasseApiModel {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    nome: ").append(toIndentedString(nome)).append("\n");
     sb.append("    valor: ").append(toIndentedString(valor)).append("\n");
     sb.append("    prazoDevolucao: ").append(toIndentedString(prazoDevolucao)).append("\n");

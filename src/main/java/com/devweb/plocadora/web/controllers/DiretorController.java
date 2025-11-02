@@ -34,6 +34,7 @@ public class DiretorController implements DiretorApi {
             if (deleted) {
                 Diretor diretor = diretorOptional.get();
                 DiretorApiModel response = new DiretorApiModel();
+                response.setId(diretor.getId().intValue());
                 response.setNome(diretor.getNome());
                 return ResponseEntity.ok(response);
             } else {
@@ -55,6 +56,7 @@ public class DiretorController implements DiretorApi {
             if (diretorOptional.isPresent()) {
                 Diretor diretor = diretorOptional.get();
                 DiretorApiModel response = new DiretorApiModel();
+                response.setId(diretor.getId().intValue());
                 response.setNome(diretor.getNome());
                 return ResponseEntity.ok(response);
             } else {
@@ -74,6 +76,7 @@ public class DiretorController implements DiretorApi {
             List<DiretorApiModel> response = diretores.stream()
                     .map(diretor -> {
                         DiretorApiModel model = new DiretorApiModel();
+                        model.setId(diretor.getId().intValue());
                         model.setNome(diretor.getNome());
                         return model;
                     })
@@ -95,6 +98,7 @@ public class DiretorController implements DiretorApi {
             Diretor diretor = diretorService.createDiretor(novoDiretorApiModel.getNome());
 
             DiretorCriadoApiModel response = new DiretorCriadoApiModel();
+            response.setId(diretor.getId().intValue());
             response.setNome(diretor.getNome());
 
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -118,6 +122,7 @@ public class DiretorController implements DiretorApi {
             if (diretorOptional.isPresent()) {
                 Diretor diretor = diretorOptional.get();
                 DiretorApiModel response = new DiretorApiModel();
+                response.setId(diretor.getId().intValue());
                 response.setNome(diretor.getNome());
                 return ResponseEntity.ok(response);
             } else {

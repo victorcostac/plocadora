@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class AtorService {
+public class AtorService implements IAtorService{
 
     private final AtorJpaRepository repository;
 
@@ -30,6 +30,7 @@ public class AtorService {
         }
 
         Ator ator = new Ator(nome.trim());
+        System.out.println("ENTIDADE ATOR: "+ator);
         return repository.save(ator);
     }
 

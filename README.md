@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# plocadora
-=======
 
 # OpenAPI generated API stub
 
@@ -28,4 +25,3 @@ public interface PetClient extends PetApi {
 
 }
 ```
->>>>>>> ba0fae0 (Initial commit)

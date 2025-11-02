@@ -9,6 +9,7 @@ import com.devweb.plocadora.web.model.NovaClasseApiModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class ClasseController implements ClasseApi {
                     novaClasseApiModel.getPrazoDevolucao());
 
             ClasseCriadaApiModel response = new ClasseCriadaApiModel();
+            response.setId(Integer.valueOf(classe.getId().toString()));
             response.setNome(classe.getNome());
             response.setValor(classe.getValor().toString());
             response.setPrazoDevolucao(classe.getPrazoDevolucao().toString());
@@ -62,6 +64,7 @@ public class ClasseController implements ClasseApi {
             if (deleted) {
                 Classe classe = classeOptional.get();
                 ClasseApiModel response = new ClasseApiModel();
+                response.setId(classe.getId().intValue());
                 response.setNome(classe.getNome());
                 response.setValor(classe.getValor());
                 response.setPrazoDevolucao(classe.getPrazoDevolucao().toString());
@@ -85,6 +88,7 @@ public class ClasseController implements ClasseApi {
             if (classeOptional.isPresent()) {
                 Classe classe = classeOptional.get();
                 ClasseApiModel response = new ClasseApiModel();
+                response.setId(classe.getId().intValue());
                 response.setNome(classe.getNome());
                 response.setValor(classe.getValor());
                 response.setPrazoDevolucao(classe.getPrazoDevolucao().toString());
@@ -106,6 +110,7 @@ public class ClasseController implements ClasseApi {
             List<ClasseApiModel> response = classes.stream()
                     .map(classe -> {
                         ClasseApiModel model = new ClasseApiModel();
+                        model.setId(classe.getId().intValue());
                         model.setNome(classe.getNome());
                         model.setValor(classe.getValor());
                         model.setPrazoDevolucao(classe.getPrazoDevolucao().toString());
@@ -139,6 +144,7 @@ public class ClasseController implements ClasseApi {
             if (classeOptional.isPresent()) {
                 Classe classe = classeOptional.get();
                 ClasseApiModel response = new ClasseApiModel();
+                response.setId(classe.getId().intValue());
                 response.setNome(classe.getNome());
                 response.setValor(classe.getValor());
                 response.setPrazoDevolucao(classe.getPrazoDevolucao().toString());

@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ClasseService {
+public class ClasseService implements IClasseService{
 
     private final ClasseJpaRepository repository;
 

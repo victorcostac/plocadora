@@ -2,6 +2,7 @@ package com.devweb.plocadora.web.controllers;
 
 import com.devweb.plocadora.domain.Ator;
 import com.devweb.plocadora.services.AtorService;
+import com.devweb.plocadora.services.IAtorService;
 import com.devweb.plocadora.web.api.AtorApi;
 import com.devweb.plocadora.web.model.AtorApiModel;
 import com.devweb.plocadora.web.model.AtorCriadoApiModel;
@@ -18,7 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AtorController implements AtorApi {
 
-    private final AtorService atorService;
+    private final IAtorService atorService;
 
     @Override
     public ResponseEntity<AtorCriadoApiModel> cadastroAtor(NovoAtorApiModel novoAtorApiModel) {
@@ -26,10 +27,12 @@ public class AtorController implements AtorApi {
             if (novoAtorApiModel == null || novoAtorApiModel.getNome() == null) {
                 return ResponseEntity.badRequest().build();
             }
+            System.out.println(novoAtorApiModel);
 
             Ator ator = atorService.createAtor(novoAtorApiModel.getNome());
 
             AtorCriadoApiModel response = new AtorCriadoApiModel();
+            System.out.println("resposta"+response);
             response.setId(ator.getId().intValue());
             response.setNome(ator.getNome());
 

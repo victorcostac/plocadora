@@ -1,43 +1,35 @@
 package com.devweb.plocadora.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "classe")
 public class Classe {
 
     // Getters e Setters
-    @Setter
     @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "nome", nullable = false, length = 100)
-    @Getter
     @Setter
     private String nome;
 
     @Column(name = "valor", nullable = false, length = 100)
     @Getter
-    @Setter
     private Double valor;
 
     @Column(name = "prazoDevolucao", nullable = false, length = 100)
     @Getter
-    @Setter
     private Double prazoDevolucao;
 
-
-    // Construtores
-    public Classe() {}
+    @OneToMany(mappedBy = "classe", fetch = FetchType.LAZY)
+    private List<Titulo> titulos;
 
     public Classe(String nome, Double valor, Double prazoDevolucao) {
         this.nome = nome;

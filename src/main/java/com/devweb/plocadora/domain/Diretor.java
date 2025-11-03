@@ -1,20 +1,16 @@
 package com.devweb.plocadora.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "diretor")
 public class Diretor {
 
-    // Getters e Setters
-    @Setter
+    // Getters
     @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +18,10 @@ public class Diretor {
 
     @Column(name = "nome", nullable = false, length = 100)
     @Getter
-    @Setter
     private String nome;
 
-    // Construtores
-    public Diretor() {}
+    @OneToMany(mappedBy = "diretor", fetch = FetchType.LAZY)
+    private List<Titulo> titulos;
 
     public Diretor(String nome) {
         this.nome = nome;

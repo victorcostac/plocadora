@@ -1,13 +1,11 @@
 package com.devweb.plocadora.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "ator")
@@ -16,19 +14,17 @@ public class Ator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
-    @Setter
     private Long id;
 
     @Column(name = "nome", nullable = false, length = 100)
     @Getter
-    @Setter
     private String nome;
 
-    // Construtores
-    public Ator() {}
+    @ManyToMany(mappedBy = "ator", fetch = FetchType.LAZY)
+    private List<Titulo> titulos;
 
     public Ator(String nome) {
-        this.nome = nome;
+        this.nome = Objects.requireNonNull(nome, "Nome do ator não pode ser nulo");
     }
 
     // toString para debug

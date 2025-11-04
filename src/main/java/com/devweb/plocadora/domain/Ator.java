@@ -23,7 +23,15 @@ public class Ator {
     @ManyToMany(mappedBy = "ator", fetch = FetchType.LAZY)
     private List<Titulo> titulos;
 
+    protected Ator() {
+        // Construtor padrão para JPA
+    }
+
     public Ator(String nome) {
+        this.nome = Objects.requireNonNull(nome, "Nome do ator não pode ser nulo");
+    }
+
+    public void atualizarNome(String nome) {
         this.nome = Objects.requireNonNull(nome, "Nome do ator não pode ser nulo");
     }
 

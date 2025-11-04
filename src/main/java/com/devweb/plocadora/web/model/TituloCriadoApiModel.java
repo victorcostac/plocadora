@@ -2,10 +2,16 @@ package com.devweb.plocadora.web.model;
 
 import java.net.URI;
 import java.util.Objects;
+import com.devweb.plocadora.web.model.AtorApiModel;
+import com.devweb.plocadora.web.model.ClasseApiModel;
+import com.devweb.plocadora.web.model.DiretorApiModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -33,6 +39,13 @@ public class TituloCriadoApiModel {
   private String sinopse;
 
   private String categoria;
+
+  private ClasseApiModel classe;
+
+  private DiretorApiModel diretor;
+
+  @Valid
+  private List<@Valid AtorApiModel> atores;
 
   public TituloCriadoApiModel id(Integer id) {
     this.id = id;
@@ -134,6 +147,74 @@ public class TituloCriadoApiModel {
     this.categoria = categoria;
   }
 
+  public TituloCriadoApiModel classe(ClasseApiModel classe) {
+    this.classe = classe;
+    return this;
+  }
+
+  /**
+   * Get classe
+   * @return classe
+  */
+  @Valid 
+  @Schema(name = "classe", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("classe")
+  public ClasseApiModel getClasse() {
+    return classe;
+  }
+
+  public void setClasse(ClasseApiModel classe) {
+    this.classe = classe;
+  }
+
+  public TituloCriadoApiModel diretor(DiretorApiModel diretor) {
+    this.diretor = diretor;
+    return this;
+  }
+
+  /**
+   * Get diretor
+   * @return diretor
+  */
+  @Valid 
+  @Schema(name = "diretor", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("diretor")
+  public DiretorApiModel getDiretor() {
+    return diretor;
+  }
+
+  public void setDiretor(DiretorApiModel diretor) {
+    this.diretor = diretor;
+  }
+
+  public TituloCriadoApiModel atores(List<@Valid AtorApiModel> atores) {
+    this.atores = atores;
+    return this;
+  }
+
+  public TituloCriadoApiModel addAtoresItem(AtorApiModel atoresItem) {
+    if (this.atores == null) {
+      this.atores = new ArrayList<>();
+    }
+    this.atores.add(atoresItem);
+    return this;
+  }
+
+  /**
+   * Get atores
+   * @return atores
+  */
+  @Valid 
+  @Schema(name = "atores", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("atores")
+  public List<@Valid AtorApiModel> getAtores() {
+    return atores;
+  }
+
+  public void setAtores(List<@Valid AtorApiModel> atores) {
+    this.atores = atores;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -147,12 +228,15 @@ public class TituloCriadoApiModel {
         Objects.equals(this.nome, tituloCriado.nome) &&
         Objects.equals(this.ano, tituloCriado.ano) &&
         Objects.equals(this.sinopse, tituloCriado.sinopse) &&
-        Objects.equals(this.categoria, tituloCriado.categoria);
+        Objects.equals(this.categoria, tituloCriado.categoria) &&
+        Objects.equals(this.classe, tituloCriado.classe) &&
+        Objects.equals(this.diretor, tituloCriado.diretor) &&
+        Objects.equals(this.atores, tituloCriado.atores);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, nome, ano, sinopse, categoria);
+    return Objects.hash(id, nome, ano, sinopse, categoria, classe, diretor, atores);
   }
 
   @Override
@@ -164,6 +248,9 @@ public class TituloCriadoApiModel {
     sb.append("    ano: ").append(toIndentedString(ano)).append("\n");
     sb.append("    sinopse: ").append(toIndentedString(sinopse)).append("\n");
     sb.append("    categoria: ").append(toIndentedString(categoria)).append("\n");
+    sb.append("    classe: ").append(toIndentedString(classe)).append("\n");
+    sb.append("    diretor: ").append(toIndentedString(diretor)).append("\n");
+    sb.append("    atores: ").append(toIndentedString(atores)).append("\n");
     sb.append("}");
     return sb.toString();
   }

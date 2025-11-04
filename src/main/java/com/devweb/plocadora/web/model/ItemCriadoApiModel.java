@@ -2,6 +2,7 @@ package com.devweb.plocadora.web.model;
 
 import java.net.URI;
 import java.util.Objects;
+import com.devweb.plocadora.web.model.TituloApiModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -33,6 +34,8 @@ public class ItemCriadoApiModel {
   private LocalDate dtAquisicao;
 
   private String tipoItem;
+
+  private TituloApiModel titulo;
 
   public ItemCriadoApiModel id(Integer id) {
     this.id = id;
@@ -114,6 +117,26 @@ public class ItemCriadoApiModel {
     this.tipoItem = tipoItem;
   }
 
+  public ItemCriadoApiModel titulo(TituloApiModel titulo) {
+    this.titulo = titulo;
+    return this;
+  }
+
+  /**
+   * Get titulo
+   * @return titulo
+  */
+  @Valid 
+  @Schema(name = "titulo", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("titulo")
+  public TituloApiModel getTitulo() {
+    return titulo;
+  }
+
+  public void setTitulo(TituloApiModel titulo) {
+    this.titulo = titulo;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -126,12 +149,13 @@ public class ItemCriadoApiModel {
     return Objects.equals(this.id, itemCriado.id) &&
         Objects.equals(this.numSerie, itemCriado.numSerie) &&
         Objects.equals(this.dtAquisicao, itemCriado.dtAquisicao) &&
-        Objects.equals(this.tipoItem, itemCriado.tipoItem);
+        Objects.equals(this.tipoItem, itemCriado.tipoItem) &&
+        Objects.equals(this.titulo, itemCriado.titulo);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, numSerie, dtAquisicao, tipoItem);
+    return Objects.hash(id, numSerie, dtAquisicao, tipoItem, titulo);
   }
 
   @Override
@@ -142,6 +166,7 @@ public class ItemCriadoApiModel {
     sb.append("    numSerie: ").append(toIndentedString(numSerie)).append("\n");
     sb.append("    dtAquisicao: ").append(toIndentedString(dtAquisicao)).append("\n");
     sb.append("    tipoItem: ").append(toIndentedString(tipoItem)).append("\n");
+    sb.append("    titulo: ").append(toIndentedString(titulo)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -1,57 +1,61 @@
 package com.devweb.plocadora.services;
 
+import com.devweb.plocadora.domain.Diretor;
+import com.devweb.plocadora.infrastructure.repositories.DiretorJpaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Service;
-
-import com.devweb.plocadora.domain.Diretor;
-import com.devweb.plocadora.infrastructure.repositories.DiretorJpaRepository;
-
-import lombok.RequiredArgsConstructor;
-
 @Service
 @RequiredArgsConstructor
-public class DiretorService {
+public class DiretorService implements IDiretorService {
 
-    private final DiretorJpaRepository repository;
+    private final DiretorJpaRepository diretorRepository;
 
+    @Override
+    @Transactional(readOnly = true)
     public List<Diretor> getDiretores() {
-        return repository.findAll();
+        return diretorRepository.findAll();
     }
 
+    @Override
+    @Transactional(readOnly = true)
     public Optional<Diretor> getDiretor(Long id) {
-        return repository.findById(id);
+        return diretorRepository.findById(id);
     }
 
+    @Override
+    @Transactional
     public Diretor createDiretor(String nome) {
-        if (nome == null || nome.trim().isEmpty()) {
-            throw new IllegalArgumentException("Nome do diretor não pode ser vazio");
-        }
-
-        Diretor diretor = new Diretor(nome.trim());
-        return repository.save(diretor);
+        Diretor diretor = new Diretor(nome);
+        return diretorRepository.save(diretor);
     }
 
+    @Override
+    @Transactional
     public Optional<Diretor> updateDiretor(Long id, String nome) {
-        if (nome == null || nome.trim().isEmpty()) {
-            throw new IllegalArgumentException("Nome do diretor não pode ser vazio");
-        }
-
-        Optional<Diretor> diretorOptional = repository.findById(id);
+        Optional<Diretor> diretorOptional = diretorRepository.findById(id);
+        
         if (diretorOptional.isPresent()) {
             Diretor diretor = diretorOptional.get();
-            diretor.setNome(nome.trim());
-            return Optional.of(repository.save(diretor));
+            diretor.atualizarNome(nome);
+            return Optional.of(diretorRepository.save(diretor));
         }
+        
         return Optional.empty();
     }
 
+    @Override
+    @Transactional
     public boolean deleteDiretor(Long id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
+        if (diretorRepository.existsById(id)) {
+            diretorRepository.deleteById(id);
             return true;
         }
         return false;
     }
 }
+

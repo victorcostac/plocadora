@@ -1,7 +1,6 @@
 package com.devweb.plocadora.web.controllers;
 
 import com.devweb.plocadora.domain.Ator;
-import com.devweb.plocadora.services.AtorService;
 import com.devweb.plocadora.services.IAtorService;
 import com.devweb.plocadora.web.api.AtorApi;
 import com.devweb.plocadora.web.model.AtorApiModel;
@@ -45,7 +44,7 @@ public class AtorController implements AtorApi {
     }
 
     @Override
-    public ResponseEntity<AtorApiModel> deleteAtor(String atorId) {
+    public ResponseEntity<Void> deleteAtor(String atorId) {
         try {
             Long id = Long.parseLong(atorId);
             Optional<Ator> atorOptional = atorService.getAtor(id);
@@ -60,7 +59,7 @@ public class AtorController implements AtorApi {
                 AtorApiModel response = new AtorApiModel();
                 response.setId(ator.getId().intValue());
                 response.setNome(ator.getNome());
-                return ResponseEntity.ok(response);
+                return ResponseEntity.ok().build();
             } else {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }

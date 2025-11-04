@@ -51,26 +51,15 @@ public class ClasseController implements ClasseApi {
     }
 
     @Override
-    public ResponseEntity<ClasseApiModel> deleteClasse(String classeId) {
+    public ResponseEntity<Void> deleteClasse(String classeId) {
         try {
             Long id = Long.parseLong(classeId);
-            Optional<Classe> classeOptional = classeService.getClasse(id);
-
-            if (classeOptional.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
-
             boolean deleted = classeService.deleteClasse(id);
+
             if (deleted) {
-                Classe classe = classeOptional.get();
-                ClasseApiModel response = new ClasseApiModel();
-                response.setId(classe.getId().intValue());
-                response.setNome(classe.getNome());
-                response.setValor(classe.getValor());
-                response.setPrazoDevolucao(classe.getPrazoDevolucao().toString());
-                return ResponseEntity.ok(response);
+                return ResponseEntity.noContent().build();
             } else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                return ResponseEntity.notFound().build();
             }
         } catch (NumberFormatException e) {
             return ResponseEntity.badRequest().build();

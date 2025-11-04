@@ -36,12 +36,12 @@ public class ClasseService implements IClasseService{
         }
 
         try {
-            Double prazoDevolucaoDouble = Double.parseDouble(prazoDevolucao);
-            if (prazoDevolucaoDouble <= 0) {
+            Integer prazoDevolucaoInt = Integer.parseInt(prazoDevolucao);
+            if (prazoDevolucaoInt <= 0) {
                 throw new IllegalArgumentException("Prazo de devolução deve ser maior que zero");
             }
 
-            Classe classe = new Classe(nome.trim(), valor, prazoDevolucaoDouble);
+            Classe classe = new Classe(nome.trim(), valor, prazoDevolucaoInt);
             return repository.save(classe);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Prazo de devolução deve ser um número válido");
@@ -60,8 +60,8 @@ public class ClasseService implements IClasseService{
         }
 
         try {
-            Double prazoDevolucaoDouble = Double.parseDouble(prazoDevolucao);
-            if (prazoDevolucaoDouble <= 0) {
+            Integer prazoDevolucaoInt = Integer.parseInt(prazoDevolucao);
+            if (prazoDevolucaoInt <= 0) {
                 throw new IllegalArgumentException("Prazo de devolução deve ser maior que zero");
             }
 
@@ -69,8 +69,8 @@ public class ClasseService implements IClasseService{
             if (classeOptional.isPresent()) {
                 Classe classe = classeOptional.get();
                 classe.setNome(nome.trim());
-                classe.setValor(valor);
-                classe.setPrazoDevolucao(prazoDevolucaoDouble);
+                classe.atualizarValor(valor);
+                classe.setPrazoDevolucao(prazoDevolucaoInt);
                 return Optional.of(repository.save(classe));
             }
             return Optional.empty();

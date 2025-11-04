@@ -33,6 +33,8 @@ public class NovoItemApiModel {
 
   private String tipoItem;
 
+  private Integer tituloId;
+
   public NovoItemApiModel() {
     super();
   }
@@ -106,6 +108,26 @@ public class NovoItemApiModel {
     this.tipoItem = tipoItem;
   }
 
+  public NovoItemApiModel tituloId(Integer tituloId) {
+    this.tituloId = tituloId;
+    return this;
+  }
+
+  /**
+   * Get tituloId
+   * @return tituloId
+  */
+  
+  @Schema(name = "titulo_id", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("titulo_id")
+  public Integer getTituloId() {
+    return tituloId;
+  }
+
+  public void setTituloId(Integer tituloId) {
+    this.tituloId = tituloId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -117,12 +139,13 @@ public class NovoItemApiModel {
     NovoItemApiModel novoItem = (NovoItemApiModel) o;
     return Objects.equals(this.numSerie, novoItem.numSerie) &&
         Objects.equals(this.dtAquisicao, novoItem.dtAquisicao) &&
-        Objects.equals(this.tipoItem, novoItem.tipoItem);
+        Objects.equals(this.tipoItem, novoItem.tipoItem) &&
+        Objects.equals(this.tituloId, novoItem.tituloId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(numSerie, dtAquisicao, tipoItem);
+    return Objects.hash(numSerie, dtAquisicao, tipoItem, tituloId);
   }
 
   @Override
@@ -132,6 +155,7 @@ public class NovoItemApiModel {
     sb.append("    numSerie: ").append(toIndentedString(numSerie)).append("\n");
     sb.append("    dtAquisicao: ").append(toIndentedString(dtAquisicao)).append("\n");
     sb.append("    tipoItem: ").append(toIndentedString(tipoItem)).append("\n");
+    sb.append("    tituloId: ").append(toIndentedString(tituloId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

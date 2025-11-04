@@ -828,12 +828,22 @@ components:
           type: string
         categoria:
           type: string
+        classe:
+          $ref: '#/components/schemas/Classe'
+        diretor:
+          $ref: '#/components/schemas/Diretor'
+        atores:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ator'
     Titulo:
       title: Titulo
       x-stoplight:
         id: 1xpfzru2mmezk
       type: object
       properties:
+        id:
+          type: integer
         nome:
           type: string
         ano:
@@ -863,6 +873,8 @@ components:
           format: date
         tipo_item:
           type: string
+        titulo_id:
+          type: integer
       required:
         - num_serie
         - dt_aquisicao
@@ -882,6 +894,8 @@ components:
           format: date
         tipo_item:
           type: string
+        titulo:
+          $ref: '#/components/schemas/Titulo'
     Item:
       title: Item
       x-stoplight:

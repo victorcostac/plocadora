@@ -23,14 +23,22 @@ public class Diretor {
     @OneToMany(mappedBy = "diretor", fetch = FetchType.LAZY)
     private List<Titulo> titulos;
 
+    protected Diretor() {
+        // Construtor padrão para JPA
+    }
+
     public Diretor(String nome) {
+        this.nome = nome;
+    }
+
+    public void atualizarNome(String nome) {
         this.nome = nome;
     }
 
     // toString para debug
     @Override
     public String toString() {
-        return "Ator{" +
+        return "Diretor{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 '}';

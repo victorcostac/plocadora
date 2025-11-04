@@ -1,7 +1,7 @@
 package com.devweb.plocadora.web.controllers;
 
 import com.devweb.plocadora.domain.Diretor;
-import com.devweb.plocadora.services.DiretorService;
+import com.devweb.plocadora.services.IDiretorService;
 import com.devweb.plocadora.web.api.DiretorApi;
 import com.devweb.plocadora.web.model.DiretorApiModel;
 import com.devweb.plocadora.web.model.DiretorCriadoApiModel;
@@ -18,27 +18,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DiretorController implements DiretorApi {
 
-    private final DiretorService diretorService;
+    private final IDiretorService diretorService;
 
     @Override
-    public ResponseEntity<DiretorApiModel> deleteDiretor(String diretorId) {
+    public ResponseEntity<Void> deleteDiretor(String diretorId) {
         try {
             Long id = Long.parseLong(diretorId);
-            Optional<Diretor> diretorOptional = diretorService.getDiretor(id);
-
-            if (diretorOptional.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
-
             boolean deleted = diretorService.deleteDiretor(id);
+
             if (deleted) {
-                Diretor diretor = diretorOptional.get();
-                DiretorApiModel response = new DiretorApiModel();
-                response.setId(diretor.getId().intValue());
-                response.setNome(diretor.getNome());
-                return ResponseEntity.ok(response);
+                return ResponseEntity.noContent().build();
             } else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                return ResponseEntity.notFound().build();
             }
         } catch (NumberFormatException e) {
             return ResponseEntity.badRequest().build();
@@ -102,8 +93,6 @@ public class DiretorController implements DiretorApi {
             response.setNome(diretor.getNome());
 
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
@@ -130,10 +119,9 @@ public class DiretorController implements DiretorApi {
             }
         } catch (NumberFormatException e) {
             return ResponseEntity.badRequest().build();
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }
+

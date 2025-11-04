@@ -100,10 +100,14 @@ public class ItemController implements ItemApi {
             // Converter LocalDate para LocalDateTime
             LocalDateTime dtAquisicao = novoItemApiModel.getDtAquisicao().atStartOfDay();
             
-            // Para criar um item, precisamos do titulo_id
-            // Como não está no modelo da API, vamos usar um valor padrão ou lançar erro
-            // Idealmente deveria estar no NovoItemApiModel
-            Long tituloId = 1L; // TEMPORÁRIO - deveria vir do modelo da API
+            // Usar tituloId do modelo da API
+            Long tituloId = novoItemApiModel.getTituloId() != null 
+                ? novoItemApiModel.getTituloId().longValue() 
+                : null;
+            
+            if (tituloId == null) {
+                return ResponseEntity.badRequest().build();
+            }
             
             Item item = itemService.createItem(
                 novoItemApiModel.getNumSerie().longValue(),

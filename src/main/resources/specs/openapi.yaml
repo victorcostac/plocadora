@@ -897,3 +897,5 @@ components:
           format: date
         tipo_item:
           type: string
+        titulo:
+          $ref: '#/components/schemas/Titulo'

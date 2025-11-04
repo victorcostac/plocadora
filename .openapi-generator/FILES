@@ -4,6 +4,8 @@ src/main/java/com/devweb/plocadora/web/api/ApiUtil.java
 src/main/java/com/devweb/plocadora/web/api/AtorApi.java
 src/main/java/com/devweb/plocadora/web/api/ClasseApi.java
 src/main/java/com/devweb/plocadora/web/api/DiretorApi.java
+src/main/java/com/devweb/plocadora/web/api/ItemApi.java
+src/main/java/com/devweb/plocadora/web/api/TituloApi.java
 src/main/java/com/devweb/plocadora/web/model/AtorApiModel.java
 src/main/java/com/devweb/plocadora/web/model/AtorCriadoApiModel.java
 src/main/java/com/devweb/plocadora/web/model/ClasseApiModel.java
@@ -11,6 +13,12 @@ src/main/java/com/devweb/plocadora/web/model/ClasseCriadaApiModel.java
 src/main/java/com/devweb/plocadora/web/model/DiretorApiModel.java
 src/main/java/com/devweb/plocadora/web/model/DiretorCriadoApiModel.java
 src/main/java/com/devweb/plocadora/web/model/ErroRequisicaoApiModel.java
+src/main/java/com/devweb/plocadora/web/model/ItemApiModel.java
+src/main/java/com/devweb/plocadora/web/model/ItemCriadoApiModel.java
 src/main/java/com/devweb/plocadora/web/model/NovaClasseApiModel.java
 src/main/java/com/devweb/plocadora/web/model/NovoAtorApiModel.java
 src/main/java/com/devweb/plocadora/web/model/NovoDiretorApiModel.java
+src/main/java/com/devweb/plocadora/web/model/NovoItemApiModel.java
+src/main/java/com/devweb/plocadora/web/model/NovoTituloApiModel.java
+src/main/java/com/devweb/plocadora/web/model/TituloApiModel.java
+src/main/java/com/devweb/plocadora/web/model/TituloCriadoApiModel.java

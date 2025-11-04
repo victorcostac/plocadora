@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+
 import java.util.*;
 import jakarta.annotation.Generated;
 
@@ -33,10 +34,9 @@ public class DiretorApiModel {
 
   /**
    * Get id
-   * 
    * @return id
-   */
-
+  */
+  
   @Schema(name = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("id")
   public Integer getId() {
@@ -54,10 +54,9 @@ public class DiretorApiModel {
 
   /**
    * Get nome
-   * 
    * @return nome
-   */
-
+  */
+  
   @Schema(name = "nome", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("nome")
   public String getNome() {
@@ -107,3 +106,4 @@ public class DiretorApiModel {
     return o.toString().replace("\n", "\n    ");
   }
 }
+

@@ -29,6 +29,19 @@ public class NovaClasseApiModel {
 
   private String prazoDevolucao;
 
+  public NovaClasseApiModel() {
+    super();
+  }
+
+  /**
+   * Constructor with only required parameters
+   */
+  public NovaClasseApiModel(String nome, Double valor, String prazoDevolucao) {
+    this.nome = nome;
+    this.valor = valor;
+    this.prazoDevolucao = prazoDevolucao;
+  }
+
   public NovaClasseApiModel nome(String nome) {
     this.nome = nome;
     return this;
@@ -38,8 +51,8 @@ public class NovaClasseApiModel {
    * Get nome
    * @return nome
   */
-  
-  @Schema(name = "nome", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull 
+  @Schema(name = "nome", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("nome")
   public String getNome() {
     return nome;
@@ -58,8 +71,8 @@ public class NovaClasseApiModel {
    * Get valor
    * @return valor
   */
-  
-  @Schema(name = "valor", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull 
+  @Schema(name = "valor", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("valor")
   public Double getValor() {
     return valor;
@@ -78,9 +91,9 @@ public class NovaClasseApiModel {
    * Get prazoDevolucao
    * @return prazoDevolucao
   */
-  
-  @Schema(name = "prazoDevolucao", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("prazoDevolucao")
+  @NotNull 
+  @Schema(name = "prazo_devolucao", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("prazo_devolucao")
   public String getPrazoDevolucao() {
     return prazoDevolucao;
   }

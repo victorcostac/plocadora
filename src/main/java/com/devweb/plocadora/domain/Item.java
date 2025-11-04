@@ -2,10 +2,12 @@ package com.devweb.plocadora.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Item {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +26,18 @@ public class Item {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "titulo_id", nullable = false)
     private Titulo titulo;
+
+    public Item(Long numSerie, LocalDateTime dtAquisicao, TipoItem tipo, Titulo titulo) {
+        this.numSerie = numSerie;
+        this.dtAquisicao = dtAquisicao;
+        this.tipo = tipo;
+        this.titulo = titulo;
+    }
+
+    public void update(Long numSerie, LocalDateTime dtAquisicao, TipoItem tipo, Titulo titulo) {
+        this.numSerie = numSerie;
+        this.dtAquisicao = dtAquisicao;
+        this.tipo = tipo;
+        this.titulo = titulo;
+    }
 }

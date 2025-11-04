@@ -78,10 +78,10 @@ public interface AtorApi {
 
 
     /**
-     * DELETE /ator/{atorId} : 
+     * DELETE /ator/{ator_id} : 
      *
      * @param atorId  (required)
-     * @return OK (status code 200)
+     * @return No Content (status code 204)
      *         or Bad Request (status code 400)
      *         or Internal Server Error (status code 500)
      */
@@ -89,9 +89,7 @@ public interface AtorApi {
         operationId = "deleteAtor",
         summary = "",
         responses = {
-            @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = AtorApiModel.class))
-            }),
+            @ApiResponse(responseCode = "204", description = "No Content"),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = ErroRequisicaoApiModel.class))
             }),
@@ -102,17 +100,17 @@ public interface AtorApi {
     )
     @RequestMapping(
         method = RequestMethod.DELETE,
-        value = "/ator/{atorId}",
+        value = "/ator/{ator_id}",
         produces = { "application/json" }
     )
     
-    ResponseEntity<AtorApiModel> deleteAtor(
-        @Parameter(name = "atorId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("atorId") String atorId
+    ResponseEntity<Void> deleteAtor(
+        @Parameter(name = "ator_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("ator_id") String atorId
     );
 
 
     /**
-     * GET /ator/{atorId} : Your GET endpoint
+     * GET /ator/{ator_id} : Your GET endpoint
      *
      * @param atorId  (required)
      * @return OK (status code 200)
@@ -137,12 +135,12 @@ public interface AtorApi {
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/ator/{atorId}",
+        value = "/ator/{ator_id}",
         produces = { "application/json" }
     )
     
     ResponseEntity<AtorApiModel> getAtor(
-        @Parameter(name = "atorId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("atorId") String atorId
+        @Parameter(name = "ator_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("ator_id") String atorId
     );
 
 
@@ -182,7 +180,7 @@ public interface AtorApi {
 
 
     /**
-     * PUT /ator/{atorId} : 
+     * PUT /ator/{ator_id} : 
      *
      * @param atorId  (required)
      * @param atorApiModel  (optional)
@@ -207,13 +205,13 @@ public interface AtorApi {
     )
     @RequestMapping(
         method = RequestMethod.PUT,
-        value = "/ator/{atorId}",
+        value = "/ator/{ator_id}",
         produces = { "application/json" },
         consumes = { "application/json" }
     )
     
     ResponseEntity<AtorApiModel> putAtor(
-        @Parameter(name = "atorId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("atorId") String atorId,
+        @Parameter(name = "ator_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("ator_id") String atorId,
         @Parameter(name = "AtorApiModel", description = "") @Valid @RequestBody(required = false) AtorApiModel atorApiModel
     );
 

@@ -25,6 +25,17 @@ public class NovoAtorApiModel {
 
   private String nome;
 
+  public NovoAtorApiModel() {
+    super();
+  }
+
+  /**
+   * Constructor with only required parameters
+   */
+  public NovoAtorApiModel(String nome) {
+    this.nome = nome;
+  }
+
   public NovoAtorApiModel nome(String nome) {
     this.nome = nome;
     return this;
@@ -34,8 +45,8 @@ public class NovoAtorApiModel {
    * Get nome
    * @return nome
   */
-  
-  @Schema(name = "nome", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull 
+  @Schema(name = "nome", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("nome")
   public String getNome() {
     return nome;

@@ -2,11 +2,14 @@ package com.devweb.plocadora.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Titulo {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,9 +39,29 @@ public class Titulo {
     @JoinTable(name = "titulo_ator",
             joinColumns = @JoinColumn(name = "titulo_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "ator_id", nullable = false))
-    private List<Ator> ator;
+    private List<Ator> ator = new ArrayList<>();
     
     @OneToMany(mappedBy = "titulo", fetch = FetchType.LAZY)
-    private List<Item> itens;
+    private List<Item> itens = new ArrayList<>();
 
+    public Titulo(String nome, Integer ano, String sinopse, String categoria, 
+                  Diretor diretor, Classe classe, List<Ator> atores) {
+        this.nome = nome;
+        this.ano = ano;
+        this.sinopse = sinopse;
+        this.categoria = categoria;
+        this.diretor = diretor;
+        this.classe = classe;
+        this.ator = atores != null ? new ArrayList<>(atores) : new ArrayList<>();
+    }
+
+    public void update(String nome, Integer ano, String sinopse, String categoria, 
+                      Diretor diretor, Classe classe) {
+        this.nome = nome;
+        this.ano = ano;
+        this.sinopse = sinopse;
+        this.categoria = categoria;
+        this.diretor = diretor;
+        this.classe = classe;
+    }
 }

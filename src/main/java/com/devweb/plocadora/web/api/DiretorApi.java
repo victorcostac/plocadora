@@ -41,10 +41,10 @@ import jakarta.annotation.Generated;
 public interface DiretorApi {
 
     /**
-     * DELETE /diretor/{diretorId} : 
+     * DELETE /diretor/{diretor_id} : 
      *
      * @param diretorId  (required)
-     * @return OK (status code 200)
+     * @return No Content (status code 204)
      *         or Bad Request (status code 400)
      *         or Internal Server Error (status code 500)
      */
@@ -52,9 +52,7 @@ public interface DiretorApi {
         operationId = "deleteDiretor",
         summary = "",
         responses = {
-            @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = DiretorApiModel.class))
-            }),
+            @ApiResponse(responseCode = "204", description = "No Content"),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = ErroRequisicaoApiModel.class))
             }),
@@ -65,17 +63,17 @@ public interface DiretorApi {
     )
     @RequestMapping(
         method = RequestMethod.DELETE,
-        value = "/diretor/{diretorId}",
+        value = "/diretor/{diretor_id}",
         produces = { "application/json" }
     )
     
-    ResponseEntity<DiretorApiModel> deleteDiretor(
-        @Parameter(name = "diretorId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("diretorId") String diretorId
+    ResponseEntity<Void> deleteDiretor(
+        @Parameter(name = "diretor_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("diretor_id") String diretorId
     );
 
 
     /**
-     * GET /diretor/{diretorId} : Your GET endpoint
+     * GET /diretor/{diretor_id} : Your GET endpoint
      *
      * @param diretorId  (required)
      * @return OK (status code 200)
@@ -100,12 +98,12 @@ public interface DiretorApi {
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/diretor/{diretorId}",
+        value = "/diretor/{diretor_id}",
         produces = { "application/json" }
     )
     
     ResponseEntity<DiretorApiModel> getDiretor(
-        @Parameter(name = "diretorId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("diretorId") String diretorId
+        @Parameter(name = "diretor_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("diretor_id") String diretorId
     );
 
 
@@ -179,7 +177,7 @@ public interface DiretorApi {
 
 
     /**
-     * PUT /diretor/{diretorId} : 
+     * PUT /diretor/{diretor_id} : 
      *
      * @param diretorId  (required)
      * @param diretorApiModel  (optional)
@@ -204,13 +202,13 @@ public interface DiretorApi {
     )
     @RequestMapping(
         method = RequestMethod.PUT,
-        value = "/diretor/{diretorId}",
+        value = "/diretor/{diretor_id}",
         produces = { "application/json" },
         consumes = { "application/json" }
     )
     
     ResponseEntity<DiretorApiModel> putDiretor(
-        @Parameter(name = "diretorId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("diretorId") String diretorId,
+        @Parameter(name = "diretor_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("diretor_id") String diretorId,
         @Parameter(name = "DiretorApiModel", description = "") @Valid @RequestBody(required = false) DiretorApiModel diretorApiModel
     );
 

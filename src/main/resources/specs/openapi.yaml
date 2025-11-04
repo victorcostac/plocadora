@@ -842,6 +842,14 @@ components:
           type: string
         categoria:
           type: string
+        classe:
+          $ref: '#/components/schemas/Classe'
+        diretor:
+          $ref: '#/components/schemas/Diretor'
+        atores:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ator'
     NovoItem:
       title: NovoItem
       x-stoplight:

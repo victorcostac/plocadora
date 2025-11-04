@@ -5,10 +5,10 @@
  */
 package com.devweb.plocadora.web.api;
 
-import com.devweb.plocadora.web.model.ClasseApiModel;
-import com.devweb.plocadora.web.model.ClasseCriadaApiModel;
 import com.devweb.plocadora.web.model.ErroRequisicaoApiModel;
-import com.devweb.plocadora.web.model.NovaClasseApiModel;
+import com.devweb.plocadora.web.model.NovoTituloApiModel;
+import com.devweb.plocadora.web.model.TituloApiModel;
+import com.devweb.plocadora.web.model.TituloCriadoApiModel;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -37,56 +37,19 @@ import jakarta.annotation.Generated;
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 @Validated
-@Tag(name = "classe", description = "the classe API")
-public interface ClasseApi {
+@Tag(name = "titulo", description = "the titulo API")
+public interface TituloApi {
 
     /**
-     * POST /classe : Create New User
-     * Create a new user.
+     * DELETE /titulo/{titulo_id} : 
      *
-     * @param novaClasseApiModel Post the necessary fields for the API to create a new user. (optional)
-     * @return User Created (status code 201)
-     *         or Missing Required Information (status code 400)
-     *         or Email Already Taken (status code 500)
-     */
-    @Operation(
-        operationId = "cadastroClasse",
-        summary = "Create New User",
-        description = "Create a new user.",
-        responses = {
-            @ApiResponse(responseCode = "201", description = "User Created", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = ClasseCriadaApiModel.class))
-            }),
-            @ApiResponse(responseCode = "400", description = "Missing Required Information", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = ErroRequisicaoApiModel.class))
-            }),
-            @ApiResponse(responseCode = "500", description = "Email Already Taken", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = ErroRequisicaoApiModel.class))
-            })
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.POST,
-        value = "/classe",
-        produces = { "application/json" },
-        consumes = { "application/json" }
-    )
-    
-    ResponseEntity<ClasseCriadaApiModel> cadastroClasse(
-        @Parameter(name = "NovaClasseApiModel", description = "Post the necessary fields for the API to create a new user.") @Valid @RequestBody(required = false) NovaClasseApiModel novaClasseApiModel
-    );
-
-
-    /**
-     * DELETE /classe/{classe_id} : 
-     *
-     * @param classeId  (required)
+     * @param tituloId  (required)
      * @return No Content (status code 204)
      *         or Bad Request (status code 400)
      *         or Internal Server Error (status code 500)
      */
     @Operation(
-        operationId = "deleteClasse",
+        operationId = "deleteTituloTituloId",
         summary = "",
         responses = {
             @ApiResponse(responseCode = "204", description = "No Content"),
@@ -100,32 +63,31 @@ public interface ClasseApi {
     )
     @RequestMapping(
         method = RequestMethod.DELETE,
-        value = "/classe/{classe_id}",
+        value = "/titulo/{titulo_id}",
         produces = { "application/json" }
     )
     
-    ResponseEntity<Void> deleteClasse(
-        @Parameter(name = "classe_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("classe_id") String classeId
+    ResponseEntity<Void> deleteTituloTituloId(
+        @Parameter(name = "titulo_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("titulo_id") String tituloId
     );
 
 
     /**
-     * GET /classe/{classe_id} : Your GET endpoint
+     * GET /titulo : Your GET endpoint
      *
-     * @param classeId  (required)
      * @return OK (status code 200)
-     *         or Bad Request (status code 400)
+     *         or Unauthorized (status code 401)
      *         or Internal Server Error (status code 500)
      */
     @Operation(
-        operationId = "getClasse",
+        operationId = "getTitulo",
         summary = "Your GET endpoint",
         tags = {  },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = ClasseApiModel.class))
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TituloApiModel.class)))
             }),
-            @ApiResponse(responseCode = "400", description = "Bad Request", content = {
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = ErroRequisicaoApiModel.class))
             }),
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = {
@@ -135,63 +97,102 @@ public interface ClasseApi {
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/classe/{classe_id}",
+        value = "/titulo",
         produces = { "application/json" }
     )
     
-    ResponseEntity<ClasseApiModel> getClasse(
-        @Parameter(name = "classe_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("classe_id") String classeId
-    );
-
-
-    /**
-     * GET /classe : 
-     *
-     * @return OK (status code 200)
-     *         or Bad Request (status code 400)
-     *         or Internal Server Error (status code 500)
-     */
-    @Operation(
-        operationId = "getClasses",
-        summary = "",
-        responses = {
-            @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ClasseApiModel.class)))
-            }),
-            @ApiResponse(responseCode = "400", description = "Bad Request", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = ErroRequisicaoApiModel.class))
-            }),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = ErroRequisicaoApiModel.class))
-            })
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.GET,
-        value = "/classe",
-        produces = { "application/json" }
-    )
-    
-    ResponseEntity<List<ClasseApiModel>> getClasses(
+    ResponseEntity<List<TituloApiModel>> getTitulo(
         
     );
 
 
     /**
-     * PUT /classe/{classe_id} : 
+     * GET /titulo/{titulo_id} : Your GET endpoint
      *
-     * @param classeId  (required)
-     * @param classeApiModel  (optional)
+     * @param tituloId  (required)
      * @return OK (status code 200)
      *         or Bad Request (status code 400)
      *         or Internal Server Error (status code 500)
      */
     @Operation(
-        operationId = "putClasse",
+        operationId = "getTituloTituloId",
+        summary = "Your GET endpoint",
+        tags = {  },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "OK", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = TituloApiModel.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErroRequisicaoApiModel.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErroRequisicaoApiModel.class))
+            })
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/titulo/{titulo_id}",
+        produces = { "application/json" }
+    )
+    
+    ResponseEntity<TituloApiModel> getTituloTituloId(
+        @Parameter(name = "titulo_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("titulo_id") String tituloId
+    );
+
+
+    /**
+     * POST /titulo : 
+     * 
+     *
+     * @param novoTituloApiModel  (optional)
+     * @return Created (status code 201)
+     *         or Bad Request (status code 400)
+     *         or Internal Server Error (status code 500)
+     */
+    @Operation(
+        operationId = "postTitulo",
+        summary = "",
+        description = "",
+        responses = {
+            @ApiResponse(responseCode = "201", description = "Created", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = TituloCriadoApiModel.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErroRequisicaoApiModel.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErroRequisicaoApiModel.class))
+            })
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.POST,
+        value = "/titulo",
+        produces = { "application/json" },
+        consumes = { "application/json" }
+    )
+    
+    ResponseEntity<TituloCriadoApiModel> postTitulo(
+        @Parameter(name = "NovoTituloApiModel", description = "") @Valid @RequestBody(required = false) NovoTituloApiModel novoTituloApiModel
+    );
+
+
+    /**
+     * PUT /titulo/{titulo_id} : 
+     *
+     * @param tituloId  (required)
+     * @param tituloApiModel  (optional)
+     * @return OK (status code 200)
+     *         or Bad Request (status code 400)
+     *         or Internal Server Error (status code 500)
+     */
+    @Operation(
+        operationId = "putTituloTituloId",
         summary = "",
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = ClasseApiModel.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = TituloApiModel.class))
             }),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = ErroRequisicaoApiModel.class))
@@ -203,14 +204,14 @@ public interface ClasseApi {
     )
     @RequestMapping(
         method = RequestMethod.PUT,
-        value = "/classe/{classe_id}",
+        value = "/titulo/{titulo_id}",
         produces = { "application/json" },
         consumes = { "application/json" }
     )
     
-    ResponseEntity<ClasseApiModel> putClasse(
-        @Parameter(name = "classe_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("classe_id") String classeId,
-        @Parameter(name = "ClasseApiModel", description = "") @Valid @RequestBody(required = false) ClasseApiModel classeApiModel
+    ResponseEntity<TituloApiModel> putTituloTituloId(
+        @Parameter(name = "titulo_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("titulo_id") String tituloId,
+        @Parameter(name = "TituloApiModel", description = "") @Valid @RequestBody(required = false) TituloApiModel tituloApiModel
     );
 
 }

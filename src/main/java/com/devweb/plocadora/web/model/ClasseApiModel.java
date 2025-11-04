@@ -101,8 +101,8 @@ public class ClasseApiModel {
    * @return prazoDevolucao
   */
   
-  @Schema(name = "prazoDevolucao", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("prazoDevolucao")
+  @Schema(name = "prazo_devolucao", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("prazo_devolucao")
   public String getPrazoDevolucao() {
     return prazoDevolucao;
   }

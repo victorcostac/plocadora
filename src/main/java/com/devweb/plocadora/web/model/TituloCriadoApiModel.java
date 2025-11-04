@@ -5,6 +5,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import java.math.BigDecimal;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -16,22 +17,24 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * ClasseCriadaApiModel
+ * TituloCriadoApiModel
  */
 
-@JsonTypeName("ClasseCriada")
+@JsonTypeName("TituloCriado")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
-public class ClasseCriadaApiModel {
+public class TituloCriadoApiModel {
 
   private Integer id;
 
   private String nome;
 
-  private String valor;
+  private BigDecimal ano;
 
-  private String prazoDevolucao;
+  private String sinopse;
 
-  public ClasseCriadaApiModel id(Integer id) {
+  private String categoria;
+
+  public TituloCriadoApiModel id(Integer id) {
     this.id = id;
     return this;
   }
@@ -51,7 +54,7 @@ public class ClasseCriadaApiModel {
     this.id = id;
   }
 
-  public ClasseCriadaApiModel nome(String nome) {
+  public TituloCriadoApiModel nome(String nome) {
     this.nome = nome;
     return this;
   }
@@ -71,44 +74,64 @@ public class ClasseCriadaApiModel {
     this.nome = nome;
   }
 
-  public ClasseCriadaApiModel valor(String valor) {
-    this.valor = valor;
+  public TituloCriadoApiModel ano(BigDecimal ano) {
+    this.ano = ano;
     return this;
   }
 
   /**
-   * Get valor
-   * @return valor
+   * Get ano
+   * @return ano
   */
-  
-  @Schema(name = "valor", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("valor")
-  public String getValor() {
-    return valor;
+  @Valid 
+  @Schema(name = "ano", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("ano")
+  public BigDecimal getAno() {
+    return ano;
   }
 
-  public void setValor(String valor) {
-    this.valor = valor;
+  public void setAno(BigDecimal ano) {
+    this.ano = ano;
   }
 
-  public ClasseCriadaApiModel prazoDevolucao(String prazoDevolucao) {
-    this.prazoDevolucao = prazoDevolucao;
+  public TituloCriadoApiModel sinopse(String sinopse) {
+    this.sinopse = sinopse;
     return this;
   }
 
   /**
-   * Get prazoDevolucao
-   * @return prazoDevolucao
+   * Get sinopse
+   * @return sinopse
   */
   
-  @Schema(name = "prazo_devolucao", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("prazo_devolucao")
-  public String getPrazoDevolucao() {
-    return prazoDevolucao;
+  @Schema(name = "sinopse", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("sinopse")
+  public String getSinopse() {
+    return sinopse;
   }
 
-  public void setPrazoDevolucao(String prazoDevolucao) {
-    this.prazoDevolucao = prazoDevolucao;
+  public void setSinopse(String sinopse) {
+    this.sinopse = sinopse;
+  }
+
+  public TituloCriadoApiModel categoria(String categoria) {
+    this.categoria = categoria;
+    return this;
+  }
+
+  /**
+   * Get categoria
+   * @return categoria
+  */
+  
+  @Schema(name = "categoria", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("categoria")
+  public String getCategoria() {
+    return categoria;
+  }
+
+  public void setCategoria(String categoria) {
+    this.categoria = categoria;
   }
 
   @Override
@@ -119,26 +142,28 @@ public class ClasseCriadaApiModel {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ClasseCriadaApiModel classeCriada = (ClasseCriadaApiModel) o;
-    return Objects.equals(this.id, classeCriada.id) &&
-        Objects.equals(this.nome, classeCriada.nome) &&
-        Objects.equals(this.valor, classeCriada.valor) &&
-        Objects.equals(this.prazoDevolucao, classeCriada.prazoDevolucao);
+    TituloCriadoApiModel tituloCriado = (TituloCriadoApiModel) o;
+    return Objects.equals(this.id, tituloCriado.id) &&
+        Objects.equals(this.nome, tituloCriado.nome) &&
+        Objects.equals(this.ano, tituloCriado.ano) &&
+        Objects.equals(this.sinopse, tituloCriado.sinopse) &&
+        Objects.equals(this.categoria, tituloCriado.categoria);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, nome, valor, prazoDevolucao);
+    return Objects.hash(id, nome, ano, sinopse, categoria);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ClasseCriadaApiModel {\n");
+    sb.append("class TituloCriadoApiModel {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    nome: ").append(toIndentedString(nome)).append("\n");
-    sb.append("    valor: ").append(toIndentedString(valor)).append("\n");
-    sb.append("    prazoDevolucao: ").append(toIndentedString(prazoDevolucao)).append("\n");
+    sb.append("    ano: ").append(toIndentedString(ano)).append("\n");
+    sb.append("    sinopse: ").append(toIndentedString(sinopse)).append("\n");
+    sb.append("    categoria: ").append(toIndentedString(categoria)).append("\n");
     sb.append("}");
     return sb.toString();
   }

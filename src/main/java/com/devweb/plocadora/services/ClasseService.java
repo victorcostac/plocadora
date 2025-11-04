@@ -25,6 +25,7 @@ public class ClasseService implements IClasseService{
     }
 
     public Classe createClasse(String nome, Double valor, String prazoDevolucao) {
+
         if (nome == null || nome.trim().isEmpty()) {
             throw new IllegalArgumentException("Nome da classe não pode ser vazio");
         }

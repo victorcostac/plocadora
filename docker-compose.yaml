@@ -1,0 +1,31 @@
+# Command to run this very easy
+## docker-compose down && ./gradlew build -x test && docker build --tag senseupdevcrapps.azurecr.io/senseup.hub.admin:senseup . && docker-compose up
+version: "3.7"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: plocadora-postgres
+    environment:
+      POSTGRES_DB: plocadora
+      POSTGRES_USER: plocadora_user
+      POSTGRES_PASSWORD: plocadora_pass
+    ports:
+      - "5430:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - plocadora-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U plocadora_user -d plocadora"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  plocadora-network:
+    driver: bridge

@@ -33,6 +33,10 @@ public class Classe {
     @OneToMany(mappedBy = "classe", fetch = FetchType.LAZY)
     private List<Titulo> titulos;
 
+    protected Classe() {
+        // Construtor padrão para JPA
+    }
+
     public Classe(String nome, Double valor, Integer prazoDevolucao) {
         this.nome = nome;
         this.valor = valor;
@@ -47,15 +51,14 @@ public class Classe {
         this.prazoDevolucao = Objects.requireNonNull(prazoDevolucao,"Prazo devolucao não pode ser nulo");
     }
 
-
     // toString para debug
     @Override
     public String toString() {
-        return "Ator{" +
+        return "Classe{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
-                ", valor='" + valor + '\'' +
-                ", prazoDevolucao='" + prazoDevolucao + '\'' +
+                ", valor=" + valor +
+                ", prazoDevolucao=" + prazoDevolucao +
                 '}';
     }
 }

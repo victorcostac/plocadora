@@ -42,7 +42,7 @@ public class AtorService implements IAtorService{
         Optional<Ator> atorOptional = repository.findById(id);
         if (atorOptional.isPresent()) {
             Ator ator = atorOptional.get();
-            ator.setNome(nome.trim());
+            ator.atualizarNome(nome.trim());
             return Optional.of(repository.save(ator));
         }
         return Optional.empty();

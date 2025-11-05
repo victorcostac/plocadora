@@ -1039,14 +1039,6 @@ components:
           type: integer
         nome:
           type: string
-    AtualizarDiretor:
-      title: atualizarDiretor
-      x-stoplight:
-        id: ff474ea22d99a
-      type: object
-      properties:
-        nome:
-          type: string
     NovoTitulo:
       title: NovoTitulo
       x-stoplight:

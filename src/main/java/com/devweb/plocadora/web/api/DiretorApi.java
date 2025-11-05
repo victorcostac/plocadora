@@ -5,6 +5,7 @@
  */
 package com.devweb.plocadora.web.api;
 
+import com.devweb.plocadora.web.model.AtualizarDiretorApiModel;
 import com.devweb.plocadora.web.model.DiretorApiModel;
 import com.devweb.plocadora.web.model.DiretorCriadoApiModel;
 import com.devweb.plocadora.web.model.ErroRequisicaoApiModel;
@@ -180,7 +181,7 @@ public interface DiretorApi {
      * PUT /diretor/{diretor_id} : 
      *
      * @param diretorId  (required)
-     * @param diretorApiModel  (optional)
+     * @param atualizarDiretorApiModel  (optional)
      * @return OK (status code 200)
      *         or Bad Request (status code 400)
      *         or Internal Server Error (status code 500)
@@ -209,7 +210,7 @@ public interface DiretorApi {
     
     ResponseEntity<DiretorApiModel> putDiretor(
         @Parameter(name = "diretor_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("diretor_id") String diretorId,
-        @Parameter(name = "DiretorApiModel", description = "") @Valid @RequestBody(required = false) DiretorApiModel diretorApiModel
+        @Parameter(name = "AtualizarDiretorApiModel", description = "") @Valid @RequestBody(required = false) AtualizarDiretorApiModel atualizarDiretorApiModel
     );
 
 }

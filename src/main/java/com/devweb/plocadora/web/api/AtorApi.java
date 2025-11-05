@@ -7,6 +7,7 @@ package com.devweb.plocadora.web.api;
 
 import com.devweb.plocadora.web.model.AtorApiModel;
 import com.devweb.plocadora.web.model.AtorCriadoApiModel;
+import com.devweb.plocadora.web.model.AtualizarAtorApiModel;
 import com.devweb.plocadora.web.model.ErroRequisicaoApiModel;
 import com.devweb.plocadora.web.model.NovoAtorApiModel;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
@@ -183,7 +184,7 @@ public interface AtorApi {
      * PUT /ator/{ator_id} : 
      *
      * @param atorId  (required)
-     * @param atorApiModel  (optional)
+     * @param atualizarAtorApiModel  (optional)
      * @return OK (status code 200)
      *         or Bad Request (status code 400)
      *         or Internal Server Error (status code 500)
@@ -212,7 +213,7 @@ public interface AtorApi {
     
     ResponseEntity<AtorApiModel> putAtor(
         @Parameter(name = "ator_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("ator_id") String atorId,
-        @Parameter(name = "AtorApiModel", description = "") @Valid @RequestBody(required = false) AtorApiModel atorApiModel
+        @Parameter(name = "AtualizarAtorApiModel", description = "") @Valid @RequestBody(required = false) AtualizarAtorApiModel atualizarAtorApiModel
     );
 
 }

@@ -3,13 +3,13 @@ package com.devweb.plocadora.web.controllers;
 import com.devweb.plocadora.domain.Classe;
 import com.devweb.plocadora.services.ClasseService;
 import com.devweb.plocadora.web.api.ClasseApi;
+import com.devweb.plocadora.web.model.AtualizarClasseApiModel;
 import com.devweb.plocadora.web.model.ClasseApiModel;
 import com.devweb.plocadora.web.model.ClasseCriadaApiModel;
 import com.devweb.plocadora.web.model.NovaClasseApiModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -114,7 +114,7 @@ public class ClasseController implements ClasseApi {
     }
 
     @Override
-    public ResponseEntity<ClasseApiModel> putClasse(String classeId, ClasseApiModel classeApiModel) {
+    public ResponseEntity<ClasseApiModel> putClasse(String classeId, AtualizarClasseApiModel classeApiModel) {
         try {
             if (classeApiModel == null ||
                     classeApiModel.getNome() == null ||

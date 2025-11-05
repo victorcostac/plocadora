@@ -24,7 +24,7 @@ public class TituloController implements TituloApi {
         try {
             Long id = Long.parseLong(tituloId);
             boolean deleted = tituloService.deleteTitulo(id);
-            
+
             if (deleted) {
                 return ResponseEntity.noContent().build();
             } else {
@@ -44,7 +44,7 @@ public class TituloController implements TituloApi {
             List<TituloApiModel> response = titulos.stream()
                     .map(this::mapToTituloApiModel)
                     .toList();
-            
+
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -56,7 +56,7 @@ public class TituloController implements TituloApi {
         try {
             Long id = Long.parseLong(tituloId);
             Optional<Titulo> tituloOptional = tituloService.getTitulo(id);
-            
+
             if (tituloOptional.isPresent()) {
                 TituloApiModel response = mapToTituloApiModel(tituloOptional.get());
                 return ResponseEntity.ok(response);
@@ -76,21 +76,20 @@ public class TituloController implements TituloApi {
             if (novoTituloApiModel == null || novoTituloApiModel.getNome() == null) {
                 return ResponseEntity.badRequest().build();
             }
-            
-            List<Long> atorIds = novoTituloApiModel.getIdAtor() != null 
-                ? List.of(novoTituloApiModel.getIdAtor().longValue()) 
-                : List.of();
-            
+
+            List<Long> atorIds = novoTituloApiModel.getIdAtores() != null
+                    ? novoTituloApiModel.getIdAtores().stream().map(Integer::longValue).toList()
+                    : List.of();
+
             Titulo titulo = tituloService.createTitulo(
-                novoTituloApiModel.getNome(),
-                novoTituloApiModel.getAno().intValue(),
-                novoTituloApiModel.getSinopse(),
-                novoTituloApiModel.getCategoria(),
-                novoTituloApiModel.getIdDiretor().longValue(),
-                novoTituloApiModel.getIdClasse().longValue(),
-                atorIds
-            );
-            
+                    novoTituloApiModel.getNome(),
+                    novoTituloApiModel.getAno().intValue(),
+                    novoTituloApiModel.getSinopse(),
+                    novoTituloApiModel.getCategoria(),
+                    novoTituloApiModel.getIdDiretor().longValue(),
+                    novoTituloApiModel.getIdClasse().longValue(),
+                    atorIds);
+
             TituloCriadoApiModel response = mapToTituloCriadoApiModel(titulo);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -102,39 +101,59 @@ public class TituloController implements TituloApi {
     }
 
     @Override
-    public ResponseEntity<TituloApiModel> putTituloTituloId(String tituloId, TituloApiModel tituloApiModel) {
+    public ResponseEntity<TituloApiModel> putTituloTituloId(String tituloId, AtualizarTituloApiModel tituloApiModel) {
         try {
             if (tituloApiModel == null || tituloApiModel.getNome() == null) {
                 return ResponseEntity.badRequest().build();
             }
-            
+
             Long id = Long.parseLong(tituloId);
-            
-            // Buscar o título existente para manter os relacionamentos
+
+            // Buscar o título existente
             Optional<Titulo> tituloExistente = tituloService.getTitulo(id);
             if (tituloExistente.isEmpty()) {
                 return ResponseEntity.notFound().build();
             }
-            
-            // Extrair IDs dos relacionamentos do modelo ou manter os existentes
-            Long diretorId = tituloApiModel.getDiretor() != null && tituloApiModel.getDiretor().getId() != null
-                ? tituloApiModel.getDiretor().getId().longValue()
-                : tituloExistente.get().getDiretor().getId();
 
-            Long classeId = tituloApiModel.getClasse() != null && tituloApiModel.getClasse().getId() != null
-                ? tituloApiModel.getClasse().getId().longValue()
-                : tituloExistente.get().getClasse().getId();
+            // Verificar se há relacionamentos para atualizar
+            boolean hasRelations = tituloApiModel.getIdClasse() != null
+                    || tituloApiModel.getIdDiretor() != null
+                    || tituloApiModel.getIdAtores() != null;
 
-            Optional<Titulo> tituloOptional = tituloService.updateTitulo(
-                id,
-                tituloApiModel.getNome(),
-                Integer.parseInt(tituloApiModel.getAno()),
-                tituloApiModel.getSinopse(),
-                tituloApiModel.getCategoria(),
-                diretorId,
-                classeId
-            );
-            
+            Optional<Titulo> tituloOptional;
+
+            if (hasRelations) {
+                // Converter IDs para Long, se fornecidos
+                Long diretorId = tituloApiModel.getIdDiretor() != null
+                        ? tituloApiModel.getIdDiretor().longValue()
+                        : null;
+                Long classeId = tituloApiModel.getIdClasse() != null
+                        ? tituloApiModel.getIdClasse().longValue()
+                        : null;
+
+                List<Long> atorIds = tituloApiModel.getIdAtores() != null
+                        ? tituloApiModel.getIdAtores().stream().map(Integer::longValue).toList()
+                        : null;
+
+                tituloOptional = tituloService.updateTituloWithRelations(
+                        id,
+                        tituloApiModel.getNome(),
+                        tituloApiModel.getAno(),
+                        tituloApiModel.getSinopse(),
+                        tituloApiModel.getCategoria(),
+                        diretorId,
+                        classeId,
+                        atorIds);
+            } else {
+                // Atualizar apenas os dados básicos
+                tituloOptional = tituloService.updateTitulo(
+                        id,
+                        tituloApiModel.getNome(),
+                        tituloApiModel.getAno(),
+                        tituloApiModel.getSinopse(),
+                        tituloApiModel.getCategoria());
+            }
+
             if (tituloOptional.isPresent()) {
                 TituloApiModel response = mapToTituloApiModel(tituloOptional.get());
                 return ResponseEntity.ok(response);
@@ -154,7 +173,7 @@ public class TituloController implements TituloApi {
         TituloApiModel model = new TituloApiModel();
         model.setId(titulo.getId().intValue());
         model.setNome(titulo.getNome());
-        model.setAno(String.valueOf(titulo.getAno()));
+        model.setAno(titulo.getAno());
         model.setSinopse(titulo.getSinopse());
         model.setCategoria(titulo.getCategoria());
 
@@ -177,15 +196,15 @@ public class TituloController implements TituloApi {
         }
 
         // Mapear atores
-        if (titulo.getAtor() != null && !titulo.getAtor().isEmpty()) {
-            List<AtorApiModel> atoresModel = titulo.getAtor().stream()
-                .map(ator -> {
-                    AtorApiModel atorModel = new AtorApiModel();
-                    atorModel.setId(ator.getId().intValue());
-                    atorModel.setNome(ator.getNome());
-                    return atorModel;
-                })
-                .collect(Collectors.toList());
+        if (titulo.getAtores() != null && !titulo.getAtores().isEmpty()) {
+            List<AtorApiModel> atoresModel = titulo.getAtores().stream()
+                    .map(ator -> {
+                        AtorApiModel atorModel = new AtorApiModel();
+                        atorModel.setId(ator.getId().intValue());
+                        atorModel.setNome(ator.getNome());
+                        return atorModel;
+                    })
+                    .collect(Collectors.toList());
             model.setAtores(atoresModel);
         }
 
@@ -196,7 +215,7 @@ public class TituloController implements TituloApi {
         TituloCriadoApiModel model = new TituloCriadoApiModel();
         model.setId(titulo.getId().intValue());
         model.setNome(titulo.getNome());
-        model.setAno(java.math.BigDecimal.valueOf(titulo.getAno()));
+        model.setAno(titulo.getAno());
         model.setSinopse(titulo.getSinopse());
         model.setCategoria(titulo.getCategoria());
 
@@ -219,15 +238,15 @@ public class TituloController implements TituloApi {
         }
 
         // Mapear atores
-        if (titulo.getAtor() != null && !titulo.getAtor().isEmpty()) {
-            List<AtorApiModel> atoresModel = titulo.getAtor().stream()
-                .map(ator -> {
-                    AtorApiModel atorModel = new AtorApiModel();
-                    atorModel.setId(ator.getId().intValue());
-                    atorModel.setNome(ator.getNome());
-                    return atorModel;
-                })
-                .collect(Collectors.toList());
+        if (titulo.getAtores() != null && !titulo.getAtores().isEmpty()) {
+            List<AtorApiModel> atoresModel = titulo.getAtores().stream()
+                    .map(ator -> {
+                        AtorApiModel atorModel = new AtorApiModel();
+                        atorModel.setId(ator.getId().intValue());
+                        atorModel.setNome(ator.getNome());
+                        return atorModel;
+                    })
+                    .collect(Collectors.toList());
             model.setAtores(atoresModel);
         }
 

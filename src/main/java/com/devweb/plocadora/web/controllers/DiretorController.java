@@ -3,6 +3,7 @@ package com.devweb.plocadora.web.controllers;
 import com.devweb.plocadora.domain.Diretor;
 import com.devweb.plocadora.services.IDiretorService;
 import com.devweb.plocadora.web.api.DiretorApi;
+import com.devweb.plocadora.web.model.AtualizarDiretorApiModel;
 import com.devweb.plocadora.web.model.DiretorApiModel;
 import com.devweb.plocadora.web.model.DiretorCriadoApiModel;
 import com.devweb.plocadora.web.model.NovoDiretorApiModel;
@@ -99,7 +100,7 @@ public class DiretorController implements DiretorApi {
     }
 
     @Override
-    public ResponseEntity<DiretorApiModel> putDiretor(String diretorId, DiretorApiModel diretorApiModel) {
+    public ResponseEntity<DiretorApiModel> putDiretor(String diretorId, AtualizarDiretorApiModel diretorApiModel) {
         try {
             if (diretorApiModel == null || diretorApiModel.getNome() == null) {
                 return ResponseEntity.badRequest().build();

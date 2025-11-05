@@ -5,6 +5,7 @@
  */
 package com.devweb.plocadora.web.api;
 
+import com.devweb.plocadora.web.model.AtualizarClasseApiModel;
 import com.devweb.plocadora.web.model.ClasseApiModel;
 import com.devweb.plocadora.web.model.ClasseCriadaApiModel;
 import com.devweb.plocadora.web.model.ErroRequisicaoApiModel;
@@ -181,7 +182,7 @@ public interface ClasseApi {
      * PUT /classe/{classe_id} : 
      *
      * @param classeId  (required)
-     * @param classeApiModel  (optional)
+     * @param atualizarClasseApiModel  (optional)
      * @return OK (status code 200)
      *         or Bad Request (status code 400)
      *         or Internal Server Error (status code 500)
@@ -210,7 +211,7 @@ public interface ClasseApi {
     
     ResponseEntity<ClasseApiModel> putClasse(
         @Parameter(name = "classe_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("classe_id") String classeId,
-        @Parameter(name = "ClasseApiModel", description = "") @Valid @RequestBody(required = false) ClasseApiModel classeApiModel
+        @Parameter(name = "AtualizarClasseApiModel", description = "") @Valid @RequestBody(required = false) AtualizarClasseApiModel atualizarClasseApiModel
     );
 
 }

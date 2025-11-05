@@ -5,6 +5,7 @@ import com.devweb.plocadora.services.IAtorService;
 import com.devweb.plocadora.web.api.AtorApi;
 import com.devweb.plocadora.web.model.AtorApiModel;
 import com.devweb.plocadora.web.model.AtorCriadoApiModel;
+import com.devweb.plocadora.web.model.AtualizarAtorApiModel;
 import com.devweb.plocadora.web.model.NovoAtorApiModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,12 +27,10 @@ public class AtorController implements AtorApi {
             if (novoAtorApiModel == null || novoAtorApiModel.getNome() == null) {
                 return ResponseEntity.badRequest().build();
             }
-            System.out.println(novoAtorApiModel);
 
             Ator ator = atorService.createAtor(novoAtorApiModel.getNome());
 
             AtorCriadoApiModel response = new AtorCriadoApiModel();
-            System.out.println("resposta"+response);
             response.setId(ator.getId().intValue());
             response.setNome(ator.getNome());
 
@@ -47,21 +46,12 @@ public class AtorController implements AtorApi {
     public ResponseEntity<Void> deleteAtor(String atorId) {
         try {
             Long id = Long.parseLong(atorId);
-            Optional<Ator> atorOptional = atorService.getAtor(id);
-
-            if (atorOptional.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
-
             boolean deleted = atorService.deleteAtor(id);
+
             if (deleted) {
-                Ator ator = atorOptional.get();
-                AtorApiModel response = new AtorApiModel();
-                response.setId(ator.getId().intValue());
-                response.setNome(ator.getNome());
-                return ResponseEntity.ok().build();
+                return ResponseEntity.noContent().build();
             } else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                return ResponseEntity.notFound().build();
             }
         } catch (NumberFormatException e) {
             return ResponseEntity.badRequest().build();
@@ -112,7 +102,7 @@ public class AtorController implements AtorApi {
     }
 
     @Override
-    public ResponseEntity<AtorApiModel> putAtor(String atorId, AtorApiModel atorApiModel) {
+    public ResponseEntity<AtorApiModel> putAtor(String atorId, AtualizarAtorApiModel atorApiModel) {
         try {
             if (atorApiModel == null || atorApiModel.getNome() == null) {
                 return ResponseEntity.badRequest().build();

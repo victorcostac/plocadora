@@ -7,7 +7,9 @@ package com.devweb.plocadora.web.api;
 
 import com.devweb.plocadora.web.model.AtualizarDependenteApiModel;
 import com.devweb.plocadora.web.model.DependenteApiModel;
+import com.devweb.plocadora.web.model.DependenteCriadoApiModel;
 import com.devweb.plocadora.web.model.ErroRequisicaoApiModel;
+import com.devweb.plocadora.web.model.NovoDependenteApiModel;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -143,6 +145,7 @@ public interface DependenteApi {
     /**
      * POST /dependente : 
      *
+     * @param novoDependenteApiModel  (optional)
      * @return Created (status code 201)
      *         or Bad Request (status code 400)
      *         or Internal Server Error (status code 500)
@@ -152,7 +155,7 @@ public interface DependenteApi {
         summary = "",
         responses = {
             @ApiResponse(responseCode = "201", description = "Created", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = DependenteApiModel.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = DependenteCriadoApiModel.class))
             }),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = ErroRequisicaoApiModel.class))
@@ -165,11 +168,12 @@ public interface DependenteApi {
     @RequestMapping(
         method = RequestMethod.POST,
         value = "/dependente",
-        produces = { "application/json" }
+        produces = { "application/json" },
+        consumes = { "application/json" }
     )
     
-    ResponseEntity<DependenteApiModel> postDependente(
-        
+    ResponseEntity<DependenteCriadoApiModel> postDependente(
+        @Parameter(name = "NovoDependenteApiModel", description = "") @Valid @RequestBody(required = false) NovoDependenteApiModel novoDependenteApiModel
     );
 
 

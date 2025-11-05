@@ -12,6 +12,8 @@ import com.devweb.plocadora.services.IDependenteService;
 import com.devweb.plocadora.web.api.DependenteApi;
 import com.devweb.plocadora.web.model.AtualizarDependenteApiModel;
 import com.devweb.plocadora.web.model.DependenteApiModel;
+import com.devweb.plocadora.web.model.DependenteCriadoApiModel;
+import com.devweb.plocadora.web.model.NovoDependenteApiModel;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -74,10 +76,38 @@ public class DependenteController implements DependenteApi {
     }
 
     @Override
-    public ResponseEntity<DependenteApiModel> postDependente() {
-        // Nota: A especificação OpenAPI não define o requestBody para POST /dependente
-        // Retornando 400 Bad Request pois falta o corpo da requisição
-        return ResponseEntity.badRequest().build();
+    public ResponseEntity<DependenteCriadoApiModel> postDependente(NovoDependenteApiModel novoDependenteApiModel) {
+        try {
+            if (novoDependenteApiModel == null || novoDependenteApiModel.getNome() == null) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            if (novoDependenteApiModel.getSocioId() == null) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            Dependente dependente = dependenteService.createDependente(
+                    novoDependenteApiModel.getNumInscricao().longValue(),
+                    novoDependenteApiModel.getNome(),
+                    novoDependenteApiModel.getDtNascimento(),
+                    novoDependenteApiModel.getSexo(),
+                    novoDependenteApiModel.getAtivo(),
+                    novoDependenteApiModel.getSocioId().longValue());
+
+            DependenteCriadoApiModel response = new DependenteCriadoApiModel();
+            response.setId(dependente.getId().intValue());
+            response.setNumInscricao(dependente.getNumInscricao().intValue());
+            response.setNome(dependente.getNome());
+            response.setDtNascimento(dependente.getDtNascimento());
+            response.setSexo(dependente.getSexo());
+            response.setAtivo(dependente.getAtivo());
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @Override

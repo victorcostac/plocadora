@@ -22,4 +22,6 @@ public interface DependenteJpaRepository extends JpaRepository<Dependente, Long>
 
     @Query("SELECT d FROM Dependente d LEFT JOIN FETCH d.socio WHERE d.socio.id = :socioId")
     List<Dependente> findBySocioId(@Param("socioId") Long socioId);
+
+    boolean existsByNumInscricao(Long numInscricao);
 }

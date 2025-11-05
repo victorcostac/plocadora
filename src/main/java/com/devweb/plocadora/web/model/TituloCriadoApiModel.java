@@ -8,7 +8,6 @@ import com.devweb.plocadora.web.model.DiretorApiModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +33,7 @@ public class TituloCriadoApiModel {
 
   private String nome;
 
-  private BigDecimal ano;
+  private Integer ano;
 
   private String sinopse;
 
@@ -87,7 +86,7 @@ public class TituloCriadoApiModel {
     this.nome = nome;
   }
 
-  public TituloCriadoApiModel ano(BigDecimal ano) {
+  public TituloCriadoApiModel ano(Integer ano) {
     this.ano = ano;
     return this;
   }
@@ -96,14 +95,14 @@ public class TituloCriadoApiModel {
    * Get ano
    * @return ano
   */
-  @Valid 
+  
   @Schema(name = "ano", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("ano")
-  public BigDecimal getAno() {
+  public Integer getAno() {
     return ano;
   }
 
-  public void setAno(BigDecimal ano) {
+  public void setAno(Integer ano) {
     this.ano = ano;
   }
 

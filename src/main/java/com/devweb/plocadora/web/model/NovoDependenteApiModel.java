@@ -36,6 +36,8 @@ public class NovoDependenteApiModel {
 
   private Boolean ativo;
 
+  private Integer socioId;
+
   public NovoDependenteApiModel numInscricao(Integer numInscricao) {
     this.numInscricao = numInscricao;
     return this;
@@ -136,6 +138,26 @@ public class NovoDependenteApiModel {
     this.ativo = ativo;
   }
 
+  public NovoDependenteApiModel socioId(Integer socioId) {
+    this.socioId = socioId;
+    return this;
+  }
+
+  /**
+   * Get socioId
+   * @return socioId
+  */
+  
+  @Schema(name = "socio_id", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("socio_id")
+  public Integer getSocioId() {
+    return socioId;
+  }
+
+  public void setSocioId(Integer socioId) {
+    this.socioId = socioId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -149,12 +171,13 @@ public class NovoDependenteApiModel {
         Objects.equals(this.nome, novoDependente.nome) &&
         Objects.equals(this.dtNascimento, novoDependente.dtNascimento) &&
         Objects.equals(this.sexo, novoDependente.sexo) &&
-        Objects.equals(this.ativo, novoDependente.ativo);
+        Objects.equals(this.ativo, novoDependente.ativo) &&
+        Objects.equals(this.socioId, novoDependente.socioId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(numInscricao, nome, dtNascimento, sexo, ativo);
+    return Objects.hash(numInscricao, nome, dtNascimento, sexo, ativo, socioId);
   }
 
   @Override
@@ -166,6 +189,7 @@ public class NovoDependenteApiModel {
     sb.append("    dtNascimento: ").append(toIndentedString(dtNascimento)).append("\n");
     sb.append("    sexo: ").append(toIndentedString(sexo)).append("\n");
     sb.append("    ativo: ").append(toIndentedString(ativo)).append("\n");
+    sb.append("    socioId: ").append(toIndentedString(socioId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

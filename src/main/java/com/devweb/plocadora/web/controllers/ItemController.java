@@ -5,6 +5,7 @@ import com.devweb.plocadora.domain.TipoItem;
 import com.devweb.plocadora.domain.Titulo;
 import com.devweb.plocadora.services.IItemService;
 import com.devweb.plocadora.web.api.ItemApi;
+import com.devweb.plocadora.web.model.AtualizarItemApiModel;
 import com.devweb.plocadora.web.model.ItemApiModel;
 import com.devweb.plocadora.web.model.ItemCriadoApiModel;
 import com.devweb.plocadora.web.model.NovoItemApiModel;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,7 +58,7 @@ public class ItemController implements ItemApi {
 
                         tituloApiModel.nome(titulo.getNome());
                         tituloApiModel.id(titulo.getId().intValue());
-                        tituloApiModel.ano(titulo.getAno().toString());
+                        tituloApiModel.ano(titulo.getAno());
                         tituloApiModel.categoria(titulo.getCategoria());
                         tituloApiModel.sinopse(titulo.getSinopse());
 
@@ -86,11 +86,21 @@ public class ItemController implements ItemApi {
 
             if (itemOptional.isPresent()) {
                 Item item = itemOptional.get();
+                Titulo titulo = item.getTitulo();
+
+                TituloApiModel tituloApiModel = new TituloApiModel();
+                tituloApiModel.nome(titulo.getNome());
+                tituloApiModel.id(titulo.getId().intValue());
+                tituloApiModel.ano(titulo.getAno());
+                tituloApiModel.categoria(titulo.getCategoria());
+                tituloApiModel.sinopse(titulo.getSinopse());
+
                 ItemApiModel response = new ItemApiModel();
                 response.setId(item.getId().intValue());
                 response.setNumSerie(String.valueOf(item.getNumSerie()));
                 response.setDtAquisicao(LocalDate.from(item.getDtAquisicao()));
                 response.setTipoItem(item.getTipo().name());
+                response.titulo(tituloApiModel);
                 return ResponseEntity.ok(response);
             } else {
                 return ResponseEntity.notFound().build();
@@ -136,7 +146,7 @@ public class ItemController implements ItemApi {
 
             tituloApiModel.nome(titulo.getNome());
             tituloApiModel.id(titulo.getId().intValue());
-            tituloApiModel.ano(titulo.getAno().toString());
+            tituloApiModel.ano(titulo.getAno());
             tituloApiModel.categoria(titulo.getCategoria());
             tituloApiModel.sinopse(titulo.getSinopse());
 
@@ -156,7 +166,7 @@ public class ItemController implements ItemApi {
     }
 
     @Override
-    public ResponseEntity<ItemApiModel> putItemItemId(String itemId, ItemApiModel itemApiModel) {
+    public ResponseEntity<ItemApiModel> putItemItemId(String itemId, AtualizarItemApiModel itemApiModel) {
         try {
             if (itemApiModel == null || itemApiModel.getNumSerie() == null) {
                 return ResponseEntity.badRequest().build();
@@ -170,18 +180,23 @@ public class ItemController implements ItemApi {
             // Converter LocalDate para LocalDateTime
             LocalDateTime dtAquisicao = itemApiModel.getDtAquisicao().atStartOfDay();
 
-            // Buscar o item existente para manter o titulo_id
+            // Buscar o item existente
             Optional<Item> itemExistente = itemService.getItem(id);
             if (itemExistente.isEmpty()) {
                 return ResponseEntity.notFound().build();
             }
 
+            // Usar titulo_id do requestBody se fornecido, senão manter o atual
+            Long tituloId = itemApiModel.getTituloId() != null
+                    ? itemApiModel.getTituloId().longValue()
+                    : itemExistente.get().getTitulo().getId();
+
             Optional<Item> itemOptional = itemService.updateItem(
                     id,
-                    Long.parseLong(itemApiModel.getNumSerie()),
+                    itemApiModel.getNumSerie().longValue(),
                     dtAquisicao,
                     tipo,
-                    itemExistente.get().getTitulo().getId());
+                    tituloId);
 
             if (itemOptional.isPresent()) {
                 Item item = itemOptional.get();

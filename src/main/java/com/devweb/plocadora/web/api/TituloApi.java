@@ -5,6 +5,7 @@
  */
 package com.devweb.plocadora.web.api;
 
+import com.devweb.plocadora.web.model.AtualizarTituloApiModel;
 import com.devweb.plocadora.web.model.ErroRequisicaoApiModel;
 import com.devweb.plocadora.web.model.NovoTituloApiModel;
 import com.devweb.plocadora.web.model.TituloApiModel;
@@ -182,7 +183,7 @@ public interface TituloApi {
      * PUT /titulo/{titulo_id} : 
      *
      * @param tituloId  (required)
-     * @param tituloApiModel  (optional)
+     * @param atualizarTituloApiModel  (optional)
      * @return OK (status code 200)
      *         or Bad Request (status code 400)
      *         or Internal Server Error (status code 500)
@@ -211,7 +212,7 @@ public interface TituloApi {
     
     ResponseEntity<TituloApiModel> putTituloTituloId(
         @Parameter(name = "titulo_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("titulo_id") String tituloId,
-        @Parameter(name = "TituloApiModel", description = "") @Valid @RequestBody(required = false) TituloApiModel tituloApiModel
+        @Parameter(name = "AtualizarTituloApiModel", description = "") @Valid @RequestBody(required = false) AtualizarTituloApiModel atualizarTituloApiModel
     );
 
 }

@@ -13,17 +13,17 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface TituloJpaRepository extends JpaRepository<Titulo, Long> {
-    
-    @Query("SELECT DISTINCT t FROM Titulo t " +
-           "LEFT JOIN FETCH t.diretor " +
-           "LEFT JOIN FETCH t.classe " +
-           "LEFT JOIN FETCH t.ator")
-    List<Titulo> findAllWithRelations();
-    
-    @Query("SELECT t FROM Titulo t " +
-           "LEFT JOIN FETCH t.diretor " +
-           "LEFT JOIN FETCH t.classe " +
-           "LEFT JOIN FETCH t.ator " +
-           "WHERE t.id = :id")
-    Optional<Titulo> findByIdWithRelations(@Param("id") Long id);
+
+       @Query("SELECT DISTINCT t FROM Titulo t " +
+                     "LEFT JOIN FETCH t.diretor " +
+                     "LEFT JOIN FETCH t.classe " +
+                     "LEFT JOIN FETCH t.atores")
+       List<Titulo> findAllWithRelations();
+
+       @Query("SELECT t FROM Titulo t " +
+                     "LEFT JOIN FETCH t.diretor " +
+                     "LEFT JOIN FETCH t.classe " +
+                     "LEFT JOIN FETCH t.atores " +
+                     "WHERE t.id = :id")
+       Optional<Titulo> findByIdWithRelations(@Param("id") Long id);
 }

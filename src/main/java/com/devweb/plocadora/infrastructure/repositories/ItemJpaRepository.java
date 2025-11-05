@@ -13,19 +13,19 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface ItemJpaRepository extends JpaRepository<Item, Long> {
-    
-    @Query("SELECT i FROM Item i " +
-           "LEFT JOIN FETCH i.titulo t " +
-           "LEFT JOIN FETCH t.diretor " +
-           "LEFT JOIN FETCH t.classe " +
-           "LEFT JOIN FETCH t.ator")
-    List<Item> findAllWithTitulo();
-    
-    @Query("SELECT i FROM Item i " +
-           "LEFT JOIN FETCH i.titulo t " +
-           "LEFT JOIN FETCH t.diretor " +
-           "LEFT JOIN FETCH t.classe " +
-           "LEFT JOIN FETCH t.ator " +
-           "WHERE i.id = :id")
-    Optional<Item> findByIdWithTitulo(@Param("id") Long id);
+
+       @Query("SELECT i FROM Item i " +
+                     "LEFT JOIN FETCH i.titulo t " +
+                     "LEFT JOIN FETCH t.diretor " +
+                     "LEFT JOIN FETCH t.classe " +
+                     "LEFT JOIN FETCH t.atores")
+       List<Item> findAllWithTitulo();
+
+       @Query("SELECT i FROM Item i " +
+                     "LEFT JOIN FETCH i.titulo t " +
+                     "LEFT JOIN FETCH t.diretor " +
+                     "LEFT JOIN FETCH t.classe " +
+                     "LEFT JOIN FETCH t.atores " +
+                     "WHERE i.id = :id")
+       Optional<Item> findByIdWithTitulo(@Param("id") Long id);
 }

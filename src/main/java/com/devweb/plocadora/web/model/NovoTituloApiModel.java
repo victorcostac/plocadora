@@ -5,7 +5,9 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -26,17 +28,18 @@ public class NovoTituloApiModel {
 
   private String nome;
 
-  private BigDecimal ano;
+  private Integer ano;
 
   private String sinopse;
 
   private String categoria;
 
-  private BigDecimal idClasse;
+  private Integer idClasse;
 
-  private BigDecimal idDiretor;
+  private Integer idDiretor;
 
-  private BigDecimal idAtor;
+  @Valid
+  private List<Integer> idAtores;
 
   public NovoTituloApiModel() {
     super();
@@ -45,7 +48,7 @@ public class NovoTituloApiModel {
   /**
    * Constructor with only required parameters
    */
-  public NovoTituloApiModel(String nome, BigDecimal ano, String sinopse, String categoria) {
+  public NovoTituloApiModel(String nome, Integer ano, String sinopse, String categoria) {
     this.nome = nome;
     this.ano = ano;
     this.sinopse = sinopse;
@@ -72,7 +75,7 @@ public class NovoTituloApiModel {
     this.nome = nome;
   }
 
-  public NovoTituloApiModel ano(BigDecimal ano) {
+  public NovoTituloApiModel ano(Integer ano) {
     this.ano = ano;
     return this;
   }
@@ -81,14 +84,14 @@ public class NovoTituloApiModel {
    * Get ano
    * @return ano
   */
-  @NotNull @Valid 
+  @NotNull 
   @Schema(name = "ano", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("ano")
-  public BigDecimal getAno() {
+  public Integer getAno() {
     return ano;
   }
 
-  public void setAno(BigDecimal ano) {
+  public void setAno(Integer ano) {
     this.ano = ano;
   }
 
@@ -132,7 +135,7 @@ public class NovoTituloApiModel {
     this.categoria = categoria;
   }
 
-  public NovoTituloApiModel idClasse(BigDecimal idClasse) {
+  public NovoTituloApiModel idClasse(Integer idClasse) {
     this.idClasse = idClasse;
     return this;
   }
@@ -141,18 +144,18 @@ public class NovoTituloApiModel {
    * Get idClasse
    * @return idClasse
   */
-  @Valid 
+  
   @Schema(name = "id_classe", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("id_classe")
-  public BigDecimal getIdClasse() {
+  public Integer getIdClasse() {
     return idClasse;
   }
 
-  public void setIdClasse(BigDecimal idClasse) {
+  public void setIdClasse(Integer idClasse) {
     this.idClasse = idClasse;
   }
 
-  public NovoTituloApiModel idDiretor(BigDecimal idDiretor) {
+  public NovoTituloApiModel idDiretor(Integer idDiretor) {
     this.idDiretor = idDiretor;
     return this;
   }
@@ -161,35 +164,43 @@ public class NovoTituloApiModel {
    * Get idDiretor
    * @return idDiretor
   */
-  @Valid 
+  
   @Schema(name = "id_diretor", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("id_diretor")
-  public BigDecimal getIdDiretor() {
+  public Integer getIdDiretor() {
     return idDiretor;
   }
 
-  public void setIdDiretor(BigDecimal idDiretor) {
+  public void setIdDiretor(Integer idDiretor) {
     this.idDiretor = idDiretor;
   }
 
-  public NovoTituloApiModel idAtor(BigDecimal idAtor) {
-    this.idAtor = idAtor;
+  public NovoTituloApiModel idAtores(List<Integer> idAtores) {
+    this.idAtores = idAtores;
+    return this;
+  }
+
+  public NovoTituloApiModel addIdAtoresItem(Integer idAtoresItem) {
+    if (this.idAtores == null) {
+      this.idAtores = new ArrayList<>();
+    }
+    this.idAtores.add(idAtoresItem);
     return this;
   }
 
   /**
-   * Get idAtor
-   * @return idAtor
+   * Get idAtores
+   * @return idAtores
   */
-  @Valid 
-  @Schema(name = "id_ator", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("id_ator")
-  public BigDecimal getIdAtor() {
-    return idAtor;
+  
+  @Schema(name = "id_atores", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("id_atores")
+  public List<Integer> getIdAtores() {
+    return idAtores;
   }
 
-  public void setIdAtor(BigDecimal idAtor) {
-    this.idAtor = idAtor;
+  public void setIdAtores(List<Integer> idAtores) {
+    this.idAtores = idAtores;
   }
 
   @Override
@@ -207,12 +218,12 @@ public class NovoTituloApiModel {
         Objects.equals(this.categoria, novoTitulo.categoria) &&
         Objects.equals(this.idClasse, novoTitulo.idClasse) &&
         Objects.equals(this.idDiretor, novoTitulo.idDiretor) &&
-        Objects.equals(this.idAtor, novoTitulo.idAtor);
+        Objects.equals(this.idAtores, novoTitulo.idAtores);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(nome, ano, sinopse, categoria, idClasse, idDiretor, idAtor);
+    return Objects.hash(nome, ano, sinopse, categoria, idClasse, idDiretor, idAtores);
   }
 
   @Override
@@ -225,7 +236,7 @@ public class NovoTituloApiModel {
     sb.append("    categoria: ").append(toIndentedString(categoria)).append("\n");
     sb.append("    idClasse: ").append(toIndentedString(idClasse)).append("\n");
     sb.append("    idDiretor: ").append(toIndentedString(idDiretor)).append("\n");
-    sb.append("    idAtor: ").append(toIndentedString(idAtor)).append("\n");
+    sb.append("    idAtores: ").append(toIndentedString(idAtores)).append("\n");
     sb.append("}");
     return sb.toString();
   }

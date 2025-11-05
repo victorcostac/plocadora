@@ -5,6 +5,7 @@
  */
 package com.devweb.plocadora.web.api;
 
+import com.devweb.plocadora.web.model.AtualizarItemApiModel;
 import com.devweb.plocadora.web.model.ErroRequisicaoApiModel;
 import com.devweb.plocadora.web.model.ItemApiModel;
 import com.devweb.plocadora.web.model.ItemCriadoApiModel;
@@ -180,7 +181,7 @@ public interface ItemApi {
      * PUT /item/{item_id} : 
      *
      * @param itemId  (required)
-     * @param itemApiModel  (optional)
+     * @param atualizarItemApiModel  (optional)
      * @return OK (status code 200)
      *         or Bad Request (status code 400)
      *         or Internal Server Error (status code 500)
@@ -209,7 +210,7 @@ public interface ItemApi {
     
     ResponseEntity<ItemApiModel> putItemItemId(
         @Parameter(name = "item_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("item_id") String itemId,
-        @Parameter(name = "ItemApiModel", description = "") @Valid @RequestBody(required = false) ItemApiModel itemApiModel
+        @Parameter(name = "AtualizarItemApiModel", description = "") @Valid @RequestBody(required = false) AtualizarItemApiModel atualizarItemApiModel
     );
 
 }

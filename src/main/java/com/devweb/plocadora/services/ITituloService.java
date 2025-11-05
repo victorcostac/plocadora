@@ -11,10 +11,13 @@ public interface ITituloService {
 
     Optional<Titulo> getTitulo(Long id);
 
-    Titulo createTitulo(String nome, Integer ano, String sinopse, String categoria, Long diretorId, Long classeId, List<Long> atorIds);
+    Titulo createTitulo(String nome, Integer ano, String sinopse, String categoria, Long diretorId, Long classeId,
+            List<Long> atorIds);
 
-    Optional<Titulo> updateTitulo(Long id, String nome, Integer ano, String sinopse, String categoria, Long diretorId, Long classeId);
+    Optional<Titulo> updateTitulo(Long id, String nome, Integer ano, String sinopse, String categoria);
+
+    Optional<Titulo> updateTituloWithRelations(Long id, String nome, Integer ano, String sinopse, String categoria,
+            Long diretorId, Long classeId, List<Long> atorIds);
 
     boolean deleteTitulo(Long id);
 }
-

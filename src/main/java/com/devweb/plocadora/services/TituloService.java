@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +39,7 @@ public class TituloService implements ITituloService {
     @Override
     @Transactional
     public Titulo createTitulo(String nome, Integer ano, String sinopse, String categoria,
-                               Long diretorId, Long classeId, List<Long> atorIds) {
+            Long diretorId, Long classeId, List<Long> atorIds) {
         Diretor diretor = diretorRepository.findById(diretorId)
                 .orElseThrow(() -> new IllegalArgumentException("Diretor não encontrado com ID: " + diretorId));
 
@@ -58,18 +57,46 @@ public class TituloService implements ITituloService {
     @Override
     @Transactional
     public Optional<Titulo> updateTitulo(Long id, String nome, Integer ano, String sinopse,
-                                        String categoria, Long diretorId, Long classeId) {
+            String categoria) {
         Optional<Titulo> tituloOptional = tituloRepository.findById(id);
 
         if (tituloOptional.isPresent()) {
-            Diretor diretor = diretorRepository.findById(diretorId)
-                    .orElseThrow(() -> new IllegalArgumentException("Diretor não encontrado com ID: " + diretorId));
-
-            Classe classe = classeRepository.findById(classeId)
-                    .orElseThrow(() -> new IllegalArgumentException("Classe não encontrada com ID: " + classeId));
 
             Titulo titulo = tituloOptional.get();
-            titulo.update(nome, ano, sinopse, categoria, diretor, classe);
+            titulo.update(nome, ano, sinopse, categoria);
+            return Optional.of(tituloRepository.save(titulo));
+        }
+
+        return Optional.empty();
+    }
+
+    @Override
+    @Transactional
+    public Optional<Titulo> updateTituloWithRelations(Long id, String nome, Integer ano, String sinopse,
+            String categoria, Long diretorId, Long classeId, List<Long> atorIds) {
+        Optional<Titulo> tituloOptional = tituloRepository.findById(id);
+
+        if (tituloOptional.isPresent()) {
+            Titulo titulo = tituloOptional.get();
+
+            // Buscar relacionamentos se fornecidos, senão manter os atuais
+            Diretor diretor = diretorId != null
+                    ? diretorRepository.findById(diretorId)
+                            .orElseThrow(
+                                    () -> new IllegalArgumentException("Diretor não encontrado com ID: " + diretorId))
+                    : titulo.getDiretor();
+
+            Classe classe = classeId != null
+                    ? classeRepository.findById(classeId)
+                            .orElseThrow(
+                                    () -> new IllegalArgumentException("Classe não encontrada com ID: " + classeId))
+                    : titulo.getClasse();
+
+            List<Ator> atores = atorIds != null && !atorIds.isEmpty()
+                    ? atorRepository.findAllById(atorIds)
+                    : titulo.getAtores();
+
+            titulo.updateWithRelations(nome, ano, sinopse, categoria, diretor, classe, atores);
             return Optional.of(tituloRepository.save(titulo));
         }
 
@@ -86,4 +113,3 @@ public class TituloService implements ITituloService {
         return false;
     }
 }
-

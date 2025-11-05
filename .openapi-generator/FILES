@@ -10,9 +10,13 @@ src/main/java/com/devweb/plocadora/web/api/SocioApi.java
 src/main/java/com/devweb/plocadora/web/api/TituloApi.java
 src/main/java/com/devweb/plocadora/web/model/AtorApiModel.java
 src/main/java/com/devweb/plocadora/web/model/AtorCriadoApiModel.java
+src/main/java/com/devweb/plocadora/web/model/AtualizarAtorApiModel.java
+src/main/java/com/devweb/plocadora/web/model/AtualizarClasseApiModel.java
 src/main/java/com/devweb/plocadora/web/model/AtualizarDependenteApiModel.java
 src/main/java/com/devweb/plocadora/web/model/AtualizarDiretorApiModel.java
+src/main/java/com/devweb/plocadora/web/model/AtualizarItemApiModel.java
 src/main/java/com/devweb/plocadora/web/model/AtualizarSocioApiModel.java
+src/main/java/com/devweb/plocadora/web/model/AtualizarTituloApiModel.java
 src/main/java/com/devweb/plocadora/web/model/ClasseApiModel.java
 src/main/java/com/devweb/plocadora/web/model/ClasseCriadaApiModel.java
 src/main/java/com/devweb/plocadora/web/model/DependenteApiModel.java

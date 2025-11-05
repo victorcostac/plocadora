@@ -40,7 +40,7 @@ public class DependenteService implements IDependenteService {
     @Override
     @Transactional
     public Dependente createDependente(Long numInscricao, String nome, LocalDate dtNascimento,
-                                       String sexo, Boolean ativo, Long socioId) {
+            String sexo, Boolean ativo, Long socioId) {
         // Validações
         if (numInscricao == null || numInscricao <= 0) {
             throw new IllegalArgumentException("Número de inscrição inválido");
@@ -50,6 +50,14 @@ public class DependenteService implements IDependenteService {
         }
         if (socioId == null) {
             throw new IllegalArgumentException("Sócio ID não pode ser nulo");
+        }
+
+        // Validar unicidade de numInscricao (verificar em Socio e Dependente)
+        if (socioRepository.existsByNumInscricao(numInscricao)) {
+            throw new IllegalArgumentException("Número de inscrição já cadastrado para um Sócio");
+        }
+        if (dependenteRepository.existsByNumInscricao(numInscricao)) {
+            throw new IllegalArgumentException("Número de inscrição já cadastrado para um Dependente");
         }
 
         Socio socio = socioRepository.findById(socioId)
@@ -62,7 +70,7 @@ public class DependenteService implements IDependenteService {
     @Override
     @Transactional
     public Optional<Dependente> updateDependente(Long id, String nome, LocalDate dtNascimento,
-                                                 String sexo, Boolean ativo, Long socioId) {
+            String sexo, Boolean ativo, Long socioId) {
         Optional<Dependente> dependenteOptional = dependenteRepository.findById(id);
 
         if (dependenteOptional.isPresent()) {

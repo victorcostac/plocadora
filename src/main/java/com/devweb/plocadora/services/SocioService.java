@@ -1,6 +1,7 @@
 package com.devweb.plocadora.services;
 
 import com.devweb.plocadora.domain.Socio;
+import com.devweb.plocadora.infrastructure.repositories.DependenteJpaRepository;
 import com.devweb.plocadora.infrastructure.repositories.SocioJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class SocioService implements ISocioService {
 
     private final SocioJpaRepository socioRepository;
+    private final DependenteJpaRepository dependenteRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -37,7 +39,7 @@ public class SocioService implements ISocioService {
     @Override
     @Transactional
     public Socio createSocio(Long numInscricao, String nome, LocalDate dtNascimento, String sexo,
-                            Boolean ativo, String cpf, String endereco, String tel) {
+            Boolean ativo, String cpf, String endereco, String tel) {
         // Validações
         if (numInscricao == null || numInscricao <= 0) {
             throw new IllegalArgumentException("Número de inscrição inválido");
@@ -51,6 +53,13 @@ public class SocioService implements ISocioService {
         if (socioRepository.existsByCpf(cpf)) {
             throw new IllegalArgumentException("CPF já cadastrado");
         }
+        // Validar unicidade de numInscricao (verificar em Socio e Dependente)
+        if (socioRepository.existsByNumInscricao(numInscricao)) {
+            throw new IllegalArgumentException("Número de inscrição já cadastrado para um Sócio");
+        }
+        if (dependenteRepository.existsByNumInscricao(numInscricao)) {
+            throw new IllegalArgumentException("Número de inscrição já cadastrado para um Dependente");
+        }
 
         Socio socio = new Socio(numInscricao, nome, dtNascimento, sexo, ativo, cpf, endereco, tel);
         return socioRepository.save(socio);
@@ -59,7 +68,7 @@ public class SocioService implements ISocioService {
     @Override
     @Transactional
     public Optional<Socio> updateSocio(Long id, String nome, LocalDate dtNascimento, String sexo,
-                                       Boolean ativo, String cpf, String endereco, String tel) {
+            Boolean ativo, String cpf, String endereco, String tel) {
         Optional<Socio> socioOptional = socioRepository.findById(id);
 
         if (socioOptional.isPresent()) {
@@ -88,4 +97,3 @@ public class SocioService implements ISocioService {
         return false;
     }
 }
-

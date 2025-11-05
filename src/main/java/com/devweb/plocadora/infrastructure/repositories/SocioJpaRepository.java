@@ -23,5 +23,6 @@ public interface SocioJpaRepository extends JpaRepository<Socio, Long> {
     Optional<Socio> findByCpf(String cpf);
 
     boolean existsByCpf(String cpf);
-}
 
+    boolean existsByNumInscricao(Long numInscricao);
+}

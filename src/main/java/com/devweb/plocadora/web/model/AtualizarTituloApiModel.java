@@ -2,9 +2,6 @@ package com.devweb.plocadora.web.model;
 
 import java.net.URI;
 import java.util.Objects;
-import com.devweb.plocadora.web.model.AtorApiModel;
-import com.devweb.plocadora.web.model.ClasseApiModel;
-import com.devweb.plocadora.web.model.DiretorApiModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -22,14 +19,12 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * TituloApiModel
+ * AtualizarTituloApiModel
  */
 
-@JsonTypeName("Titulo")
+@JsonTypeName("AtualizarTitulo")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
-public class TituloApiModel {
-
-  private Integer id;
+public class AtualizarTituloApiModel {
 
   private String nome;
 
@@ -39,34 +34,14 @@ public class TituloApiModel {
 
   private String categoria;
 
-  private ClasseApiModel classe;
+  private Integer idClasse;
 
-  private DiretorApiModel diretor;
+  private Integer idDiretor;
 
   @Valid
-  private List<@Valid AtorApiModel> atores;
+  private List<Integer> idAtores;
 
-  public TituloApiModel id(Integer id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-  */
-  
-  @Schema(name = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("id")
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public TituloApiModel nome(String nome) {
+  public AtualizarTituloApiModel nome(String nome) {
     this.nome = nome;
     return this;
   }
@@ -86,7 +61,7 @@ public class TituloApiModel {
     this.nome = nome;
   }
 
-  public TituloApiModel ano(Integer ano) {
+  public AtualizarTituloApiModel ano(Integer ano) {
     this.ano = ano;
     return this;
   }
@@ -106,7 +81,7 @@ public class TituloApiModel {
     this.ano = ano;
   }
 
-  public TituloApiModel sinopse(String sinopse) {
+  public AtualizarTituloApiModel sinopse(String sinopse) {
     this.sinopse = sinopse;
     return this;
   }
@@ -126,7 +101,7 @@ public class TituloApiModel {
     this.sinopse = sinopse;
   }
 
-  public TituloApiModel categoria(String categoria) {
+  public AtualizarTituloApiModel categoria(String categoria) {
     this.categoria = categoria;
     return this;
   }
@@ -146,72 +121,72 @@ public class TituloApiModel {
     this.categoria = categoria;
   }
 
-  public TituloApiModel classe(ClasseApiModel classe) {
-    this.classe = classe;
+  public AtualizarTituloApiModel idClasse(Integer idClasse) {
+    this.idClasse = idClasse;
     return this;
   }
 
   /**
-   * Get classe
-   * @return classe
+   * Get idClasse
+   * @return idClasse
   */
-  @Valid 
-  @Schema(name = "classe", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("classe")
-  public ClasseApiModel getClasse() {
-    return classe;
+  
+  @Schema(name = "id_classe", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("id_classe")
+  public Integer getIdClasse() {
+    return idClasse;
   }
 
-  public void setClasse(ClasseApiModel classe) {
-    this.classe = classe;
+  public void setIdClasse(Integer idClasse) {
+    this.idClasse = idClasse;
   }
 
-  public TituloApiModel diretor(DiretorApiModel diretor) {
-    this.diretor = diretor;
+  public AtualizarTituloApiModel idDiretor(Integer idDiretor) {
+    this.idDiretor = idDiretor;
     return this;
   }
 
   /**
-   * Get diretor
-   * @return diretor
+   * Get idDiretor
+   * @return idDiretor
   */
-  @Valid 
-  @Schema(name = "diretor", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("diretor")
-  public DiretorApiModel getDiretor() {
-    return diretor;
+  
+  @Schema(name = "id_diretor", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("id_diretor")
+  public Integer getIdDiretor() {
+    return idDiretor;
   }
 
-  public void setDiretor(DiretorApiModel diretor) {
-    this.diretor = diretor;
+  public void setIdDiretor(Integer idDiretor) {
+    this.idDiretor = idDiretor;
   }
 
-  public TituloApiModel atores(List<@Valid AtorApiModel> atores) {
-    this.atores = atores;
+  public AtualizarTituloApiModel idAtores(List<Integer> idAtores) {
+    this.idAtores = idAtores;
     return this;
   }
 
-  public TituloApiModel addAtoresItem(AtorApiModel atoresItem) {
-    if (this.atores == null) {
-      this.atores = new ArrayList<>();
+  public AtualizarTituloApiModel addIdAtoresItem(Integer idAtoresItem) {
+    if (this.idAtores == null) {
+      this.idAtores = new ArrayList<>();
     }
-    this.atores.add(atoresItem);
+    this.idAtores.add(idAtoresItem);
     return this;
   }
 
   /**
-   * Get atores
-   * @return atores
+   * Get idAtores
+   * @return idAtores
   */
-  @Valid 
-  @Schema(name = "atores", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("atores")
-  public List<@Valid AtorApiModel> getAtores() {
-    return atores;
+  
+  @Schema(name = "id_atores", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("id_atores")
+  public List<Integer> getIdAtores() {
+    return idAtores;
   }
 
-  public void setAtores(List<@Valid AtorApiModel> atores) {
-    this.atores = atores;
+  public void setIdAtores(List<Integer> idAtores) {
+    this.idAtores = idAtores;
   }
 
   @Override
@@ -222,34 +197,32 @@ public class TituloApiModel {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TituloApiModel titulo = (TituloApiModel) o;
-    return Objects.equals(this.id, titulo.id) &&
-        Objects.equals(this.nome, titulo.nome) &&
-        Objects.equals(this.ano, titulo.ano) &&
-        Objects.equals(this.sinopse, titulo.sinopse) &&
-        Objects.equals(this.categoria, titulo.categoria) &&
-        Objects.equals(this.classe, titulo.classe) &&
-        Objects.equals(this.diretor, titulo.diretor) &&
-        Objects.equals(this.atores, titulo.atores);
+    AtualizarTituloApiModel atualizarTitulo = (AtualizarTituloApiModel) o;
+    return Objects.equals(this.nome, atualizarTitulo.nome) &&
+        Objects.equals(this.ano, atualizarTitulo.ano) &&
+        Objects.equals(this.sinopse, atualizarTitulo.sinopse) &&
+        Objects.equals(this.categoria, atualizarTitulo.categoria) &&
+        Objects.equals(this.idClasse, atualizarTitulo.idClasse) &&
+        Objects.equals(this.idDiretor, atualizarTitulo.idDiretor) &&
+        Objects.equals(this.idAtores, atualizarTitulo.idAtores);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, nome, ano, sinopse, categoria, classe, diretor, atores);
+    return Objects.hash(nome, ano, sinopse, categoria, idClasse, idDiretor, idAtores);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TituloApiModel {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("class AtualizarTituloApiModel {\n");
     sb.append("    nome: ").append(toIndentedString(nome)).append("\n");
     sb.append("    ano: ").append(toIndentedString(ano)).append("\n");
     sb.append("    sinopse: ").append(toIndentedString(sinopse)).append("\n");
     sb.append("    categoria: ").append(toIndentedString(categoria)).append("\n");
-    sb.append("    classe: ").append(toIndentedString(classe)).append("\n");
-    sb.append("    diretor: ").append(toIndentedString(diretor)).append("\n");
-    sb.append("    atores: ").append(toIndentedString(atores)).append("\n");
+    sb.append("    idClasse: ").append(toIndentedString(idClasse)).append("\n");
+    sb.append("    idDiretor: ").append(toIndentedString(idDiretor)).append("\n");
+    sb.append("    idAtores: ").append(toIndentedString(idAtores)).append("\n");
     sb.append("}");
     return sb.toString();
   }

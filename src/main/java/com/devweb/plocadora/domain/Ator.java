@@ -20,7 +20,7 @@ public class Ator {
     @Getter
     private String nome;
 
-    @ManyToMany(mappedBy = "ator", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "atores", fetch = FetchType.LAZY)
     private List<Titulo> titulos;
 
     protected Ator() {

@@ -18,12 +18,12 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * NovoItemApiModel
+ * AtualizarItemApiModel
  */
 
-@JsonTypeName("NovoItem")
+@JsonTypeName("AtualizarItem")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
-public class NovoItemApiModel {
+public class AtualizarItemApiModel {
 
   private Integer numSerie;
 
@@ -34,20 +34,7 @@ public class NovoItemApiModel {
 
   private Integer tituloId;
 
-  public NovoItemApiModel() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public NovoItemApiModel(Integer numSerie, LocalDate dtAquisicao, String tipoItem) {
-    this.numSerie = numSerie;
-    this.dtAquisicao = dtAquisicao;
-    this.tipoItem = tipoItem;
-  }
-
-  public NovoItemApiModel numSerie(Integer numSerie) {
+  public AtualizarItemApiModel numSerie(Integer numSerie) {
     this.numSerie = numSerie;
     return this;
   }
@@ -56,8 +43,8 @@ public class NovoItemApiModel {
    * Get numSerie
    * @return numSerie
   */
-  @NotNull 
-  @Schema(name = "num_serie", requiredMode = Schema.RequiredMode.REQUIRED)
+  
+  @Schema(name = "num_serie", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("num_serie")
   public Integer getNumSerie() {
     return numSerie;
@@ -67,7 +54,7 @@ public class NovoItemApiModel {
     this.numSerie = numSerie;
   }
 
-  public NovoItemApiModel dtAquisicao(LocalDate dtAquisicao) {
+  public AtualizarItemApiModel dtAquisicao(LocalDate dtAquisicao) {
     this.dtAquisicao = dtAquisicao;
     return this;
   }
@@ -76,8 +63,8 @@ public class NovoItemApiModel {
    * Get dtAquisicao
    * @return dtAquisicao
   */
-  @NotNull @Valid 
-  @Schema(name = "dt_aquisicao", requiredMode = Schema.RequiredMode.REQUIRED)
+  @Valid 
+  @Schema(name = "dt_aquisicao", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dt_aquisicao")
   public LocalDate getDtAquisicao() {
     return dtAquisicao;
@@ -87,7 +74,7 @@ public class NovoItemApiModel {
     this.dtAquisicao = dtAquisicao;
   }
 
-  public NovoItemApiModel tipoItem(String tipoItem) {
+  public AtualizarItemApiModel tipoItem(String tipoItem) {
     this.tipoItem = tipoItem;
     return this;
   }
@@ -96,8 +83,8 @@ public class NovoItemApiModel {
    * Get tipoItem
    * @return tipoItem
   */
-  @NotNull 
-  @Schema(name = "tipo_item", requiredMode = Schema.RequiredMode.REQUIRED)
+  
+  @Schema(name = "tipo_item", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("tipo_item")
   public String getTipoItem() {
     return tipoItem;
@@ -107,7 +94,7 @@ public class NovoItemApiModel {
     this.tipoItem = tipoItem;
   }
 
-  public NovoItemApiModel tituloId(Integer tituloId) {
+  public AtualizarItemApiModel tituloId(Integer tituloId) {
     this.tituloId = tituloId;
     return this;
   }
@@ -135,11 +122,11 @@ public class NovoItemApiModel {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    NovoItemApiModel novoItem = (NovoItemApiModel) o;
-    return Objects.equals(this.numSerie, novoItem.numSerie) &&
-        Objects.equals(this.dtAquisicao, novoItem.dtAquisicao) &&
-        Objects.equals(this.tipoItem, novoItem.tipoItem) &&
-        Objects.equals(this.tituloId, novoItem.tituloId);
+    AtualizarItemApiModel atualizarItem = (AtualizarItemApiModel) o;
+    return Objects.equals(this.numSerie, atualizarItem.numSerie) &&
+        Objects.equals(this.dtAquisicao, atualizarItem.dtAquisicao) &&
+        Objects.equals(this.tipoItem, atualizarItem.tipoItem) &&
+        Objects.equals(this.tituloId, atualizarItem.tituloId);
   }
 
   @Override
@@ -150,7 +137,7 @@ public class NovoItemApiModel {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class NovoItemApiModel {\n");
+    sb.append("class AtualizarItemApiModel {\n");
     sb.append("    numSerie: ").append(toIndentedString(numSerie)).append("\n");
     sb.append("    dtAquisicao: ").append(toIndentedString(dtAquisicao)).append("\n");
     sb.append("    tipoItem: ").append(toIndentedString(tipoItem)).append("\n");

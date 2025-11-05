@@ -669,6 +669,258 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Item'
+  /socio:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Socio'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+      operationId: get-socio
+    post:
+      summary: ''
+      operationId: post-socio
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SocioCriado'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NovoSocio'
+      x-extension-1: null
+  '/socio/{socio_id}':
+    parameters:
+      - schema:
+          type: string
+        name: socio_id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Socio'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+      operationId: get-socio-socio_id
+    delete:
+      summary: ''
+      operationId: delete-socio-socio_id
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+    put:
+      summary: ''
+      operationId: put-socio-socio_id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtualizarSocio'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Socio'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+  /dependente:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dependente'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+      operationId: get-dependente
+    post:
+      summary: ''
+      operationId: post-dependente
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dependente'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+  '/dependente/{dependente_id}':
+    parameters:
+      - schema:
+          type: string
+        name: dependente_id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dependente'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+      operationId: get-dependente-dependente_id
+    put:
+      summary: ''
+      operationId: put-dependente-dependente_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dependente'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtualizarDependente'
+    delete:
+      summary: ''
+      operationId: delete-dependente-dependente_id
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroRequisicao'
 components:
   schemas:
     ErroRequisicao:
@@ -785,6 +1037,14 @@ components:
       properties:
         id:
           type: integer
+        nome:
+          type: string
+    AtualizarDiretor:
+      title: atualizarDiretor
+      x-stoplight:
+        id: ff474ea22d99a
+      type: object
+      properties:
         nome:
           type: string
     NovoTitulo:
@@ -913,3 +1173,171 @@ components:
           type: string
         titulo:
           $ref: '#/components/schemas/Titulo'
+    NovoSocio:
+      title: NovoSocio
+      x-stoplight:
+        id: vceqf9gga33ku
+      type: object
+      properties:
+        num_inscricao:
+          type: integer
+        nome:
+          type: string
+        dt_nascimento:
+          type: string
+          format: date
+        sexo:
+          type: string
+        ativo:
+          type: boolean
+        cpf:
+          type: string
+        tel:
+          type: string
+        endereco:
+          type: string
+    SocioCriado:
+      title: SocioCriado
+      x-stoplight:
+        id: p9dghearglvl2
+      type: object
+      properties:
+        id:
+          type: integer
+        num_inscricao:
+          type: integer
+        nome:
+          type: string
+        dt_nascimento:
+          type: string
+          format: date
+        sexo:
+          type: string
+        ativo:
+          type: boolean
+        cpf:
+          type: string
+        tel:
+          type: string
+        endereco:
+          type: string
+    Socio:
+      title: Socio
+      x-stoplight:
+        id: iyh36n4airu2l
+      type: object
+      properties:
+        id:
+          type: integer
+        num_inscricao:
+          type: integer
+        nome:
+          type: string
+        dt_nascimento:
+          type: string
+          format: date
+        sexo:
+          type: string
+        ativo:
+          type: boolean
+        cpf:
+          type: string
+        tel:
+          type: string
+        endereco:
+          type: string
+    AtualizarSocio:
+      title: AtualizarSocio
+      x-stoplight:
+        id: p95l1vwylvdm4
+      type: object
+      properties:
+        num_inscricao:
+          type: integer
+        nome:
+          type: string
+        dt_nascimento:
+          type: string
+          format: date
+        sexo:
+          type: string
+        ativo:
+          type: boolean
+        cpf:
+          type: string
+        tel:
+          type: string
+        endereco:
+          type: string
+    NovoDependente:
+      title: NovoDependente
+      x-stoplight:
+        id: ccxgsysd5fft1
+      type: object
+      properties:
+        num_inscricao:
+          type: integer
+        nome:
+          type: string
+        dt_nascimento:
+          type: string
+          format: date
+        sexo:
+          type: string
+        ativo:
+          type: boolean
+    Dependente:
+      title: Dependente
+      x-stoplight:
+        id: 2l1iff5fxbjf0
+      type: object
+      properties:
+        id:
+          type: integer
+        num_inscricao:
+          type: integer
+        nome:
+          type: string
+        dt_nascimento:
+          type: string
+          format: date
+        sexo:
+          type: string
+        ativo:
+          type: boolean
+    DependenteCriado:
+      title: DependenteCriado
+      x-stoplight:
+        id: gg81uc7k5owot
+      type: object
+      properties:
+        id:
+          type: integer
+        num_inscricao:
+          type: integer
+        nome:
+          type: string
+        dt_nascimento:
+          type: string
+          format: date
+        sexo:
+          type: string
+        ativo:
+          type: boolean
+    AtualizarDependente:
+      title: AtualizarDependente
+      x-stoplight:
+        id: uv56w2jxm167r
+      type: object
+      properties:
+        num_inscricao:
+          type: integer
+        nome:
+          type: string
+        dt_nascimento:
+          type: string
+          format: date
+        sexo:
+          type: string
+        ativo:
+          type: boolean

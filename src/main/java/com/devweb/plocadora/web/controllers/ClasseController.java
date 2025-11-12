@@ -52,44 +52,21 @@ public class ClasseController implements ClasseApi {
 
     @Override
     public ResponseEntity<Void> deleteClasse(String classeId) {
-        try {
-            Long id = Long.parseLong(classeId);
-            boolean deleted = classeService.deleteClasse(id);
-
-            if (deleted) {
-                return ResponseEntity.noContent().build();
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        Long id = Long.parseLong(classeId);
+        classeService.deleteClasse(id);
+        return ResponseEntity.noContent().build();
     }
 
     @Override
     public ResponseEntity<ClasseApiModel> getClasse(String classeId) {
-        try {
             Long id = Long.parseLong(classeId);
-            Optional<Classe> classeOptional = classeService.getClasse(id);
-
-            if (classeOptional.isPresent()) {
-                Classe classe = classeOptional.get();
-                ClasseApiModel response = new ClasseApiModel();
-                response.setId(classe.getId().intValue());
-                response.setNome(classe.getNome());
-                response.setValor(classe.getValor());
-                response.setPrazoDevolucao(classe.getPrazoDevolucao().toString());
-                return ResponseEntity.ok(response);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+            Classe classe = classeService.getClasse(id);
+            ClasseApiModel response = new ClasseApiModel();
+            response.setId(classe.getId().intValue());
+            response.setNome(classe.getNome());
+            response.setValor(classe.getValor());
+            response.setPrazoDevolucao(classe.getPrazoDevolucao().toString());
+            return ResponseEntity.ok(response);
     }
 
     @Override
@@ -115,38 +92,26 @@ public class ClasseController implements ClasseApi {
 
     @Override
     public ResponseEntity<ClasseApiModel> putClasse(String classeId, AtualizarClasseApiModel classeApiModel) {
-        try {
-            if (classeApiModel == null ||
-                    classeApiModel.getNome() == null ||
-                    classeApiModel.getValor() == null ||
-                    classeApiModel.getPrazoDevolucao() == null) {
-                return ResponseEntity.badRequest().build();
-            }
-
-            Long id = Long.parseLong(classeId);
-            Optional<Classe> classeOptional = classeService.updateClasse(
-                    id,
-                    classeApiModel.getNome(),
-                    classeApiModel.getValor(),
-                    classeApiModel.getPrazoDevolucao());
-
-            if (classeOptional.isPresent()) {
-                Classe classe = classeOptional.get();
-                ClasseApiModel response = new ClasseApiModel();
-                response.setId(classe.getId().intValue());
-                response.setNome(classe.getNome());
-                response.setValor(classe.getValor());
-                response.setPrazoDevolucao(classe.getPrazoDevolucao().toString());
-                return ResponseEntity.ok(response);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().build();
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        if (classeApiModel == null ||
+                classeApiModel.getNome() == null ||
+                classeApiModel.getValor() == null ||
+                classeApiModel.getPrazoDevolucao() == null) {
+            throw new IllegalArgumentException("Informações da classe não informadas.");
         }
+
+        Long id = Long.parseLong(classeId);
+        Classe classe = classeService.updateClasse(
+                id,
+                classeApiModel.getNome(),
+                classeApiModel.getValor(),
+                classeApiModel.getPrazoDevolucao());
+
+        ClasseApiModel response = new ClasseApiModel();
+        response.setId(classe.getId().intValue());
+        response.setNome(classe.getNome());
+        response.setValor(classe.getValor());
+        response.setPrazoDevolucao(classe.getPrazoDevolucao().toString());
+        return ResponseEntity.ok(response);
+
     }
 }

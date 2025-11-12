@@ -7,12 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.devweb.plocadora.domain.Classe;
 import com.devweb.plocadora.infrastructure.repositories.ClasseJpaRepository;
+import com.devweb.plocadora.web.exception.ResourceNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ClasseService implements IClasseService{
+public class ClasseService implements IClasseService {
 
     private final ClasseJpaRepository repository;
 
@@ -20,8 +21,9 @@ public class ClasseService implements IClasseService{
         return repository.findAll();
     }
 
-    public Optional<Classe> getClasse(Long id) {
-        return repository.findById(id);
+    public Classe getClasse(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Classe não encontrada com o id " + id));
     }
 
     public Classe createClasse(String nome, Double valor, String prazoDevolucao) {
@@ -49,7 +51,7 @@ public class ClasseService implements IClasseService{
         }
     }
 
-    public Optional<Classe> updateClasse(Long id, String nome, Double valor, String prazoDevolucao) {
+    public Classe updateClasse(Long id, String nome, Double valor, String prazoDevolucao) {
         if (nome == null || nome.trim().isEmpty()) {
             throw new IllegalArgumentException("Nome da classe não pode ser vazio");
         }
@@ -67,24 +69,24 @@ public class ClasseService implements IClasseService{
             }
 
             Optional<Classe> classeOptional = repository.findById(id);
-            if (classeOptional.isPresent()) {
-                Classe classe = classeOptional.get();
-                classe.setNome(nome.trim());
-                classe.atualizarValor(valor);
-                classe.setPrazoDevolucao(prazoDevolucaoInt);
-                return Optional.of(repository.save(classe));
-            }
-            return Optional.empty();
+            if (!classeOptional.isPresent())
+                throw new ResourceNotFoundException("Classe não encontrada com o id " + id);
+
+            Classe classe = classeOptional.get();
+            classe.setNome(nome.trim());
+            classe.atualizarValor(valor);
+            classe.setPrazoDevolucao(prazoDevolucaoInt);
+            return repository.save(classe);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Prazo de devolução deve ser um número válido");
         }
     }
 
-    public boolean deleteClasse(Long id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-            return true;
+    public void deleteClasse(Long id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Classe", id);
         }
-        return false;
+        repository.deleteById(id);
     }
+
 }

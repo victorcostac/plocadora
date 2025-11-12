@@ -9,6 +9,7 @@ import com.devweb.plocadora.domain.Classe;
 import com.devweb.plocadora.infrastructure.repositories.ClasseJpaRepository;
 import com.devweb.plocadora.web.exception.ResourceNotFoundException;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -26,7 +27,7 @@ public class ClasseService implements IClasseService {
                 .orElseThrow(() -> new ResourceNotFoundException("Classe não encontrada com o id " + id));
     }
 
-    public Classe createClasse(String nome, Double valor, String prazoDevolucao) {
+    public Classe createClasse(String nome,@Valid Double valor,@Valid String prazoDevolucao) {
 
         if (nome == null || nome.trim().isEmpty()) {
             throw new IllegalArgumentException("Nome da classe não pode ser vazio");
@@ -46,9 +47,11 @@ public class ClasseService implements IClasseService {
 
             Classe classe = new Classe(nome.trim(), valor, prazoDevolucaoInt);
             return repository.save(classe);
-        } catch (NumberFormatException e) {
+        } catch (RuntimeException e) {
             throw new IllegalArgumentException("Prazo de devolução deve ser um número válido");
-        }
+        }  catch (Exception e) {
+            throw new InternalError("Problema na tentativa ao cadastrar classe.");
+        }    
     }
 
     public Classe updateClasse(Long id, String nome, Double valor, String prazoDevolucao) {

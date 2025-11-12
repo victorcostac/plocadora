@@ -23,31 +23,26 @@ public class ClasseController implements ClasseApi {
 
     @Override
     public ResponseEntity<ClasseCriadaApiModel> cadastroClasse(NovaClasseApiModel novaClasseApiModel) {
-        try {
-            if (novaClasseApiModel == null ||
-                    novaClasseApiModel.getNome() == null ||
-                    novaClasseApiModel.getValor() == null ||
-                    novaClasseApiModel.getPrazoDevolucao() == null) {
-                return ResponseEntity.badRequest().build();
-            }
 
-            Classe classe = classeService.createClasse(
-                    novaClasseApiModel.getNome(),
-                    novaClasseApiModel.getValor(),
-                    novaClasseApiModel.getPrazoDevolucao());
-
-            ClasseCriadaApiModel response = new ClasseCriadaApiModel();
-            response.setId(Integer.valueOf(classe.getId().toString()));
-            response.setNome(classe.getNome());
-            response.setValor(classe.getValor().toString());
-            response.setPrazoDevolucao(classe.getPrazoDevolucao().toString());
-
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        if (novaClasseApiModel == null ||
+                novaClasseApiModel.getNome() == null ||
+                novaClasseApiModel.getValor() == null ||
+                novaClasseApiModel.getPrazoDevolucao() == null) {
+            throw new IllegalArgumentException("Informações da classe não informadas.");
         }
+
+        Classe classe = classeService.createClasse(
+                novaClasseApiModel.getNome(),
+                novaClasseApiModel.getValor(),
+                novaClasseApiModel.getPrazoDevolucao());
+
+        ClasseCriadaApiModel response = new ClasseCriadaApiModel();
+        response.setId(Integer.valueOf(classe.getId().toString()));
+        response.setNome(classe.getNome());
+        response.setValor(classe.getValor().toString());
+        response.setPrazoDevolucao(classe.getPrazoDevolucao().toString());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @Override
@@ -59,14 +54,14 @@ public class ClasseController implements ClasseApi {
 
     @Override
     public ResponseEntity<ClasseApiModel> getClasse(String classeId) {
-            Long id = Long.parseLong(classeId);
-            Classe classe = classeService.getClasse(id);
-            ClasseApiModel response = new ClasseApiModel();
-            response.setId(classe.getId().intValue());
-            response.setNome(classe.getNome());
-            response.setValor(classe.getValor());
-            response.setPrazoDevolucao(classe.getPrazoDevolucao().toString());
-            return ResponseEntity.ok(response);
+        Long id = Long.parseLong(classeId);
+        Classe classe = classeService.getClasse(id);
+        ClasseApiModel response = new ClasseApiModel();
+        response.setId(classe.getId().intValue());
+        response.setNome(classe.getNome());
+        response.setValor(classe.getValor());
+        response.setPrazoDevolucao(classe.getPrazoDevolucao().toString());
+        return ResponseEntity.ok(response);
     }
 
     @Override

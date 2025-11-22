@@ -61,3 +61,9 @@ task generateServer(type: org.openapitools.generator.gradle.plugin.tasks.Generat
             java17                 : 'true'
     ]
 }
+
+
+
+bootJar {
+    archiveFileName = 'app.jar'
+}

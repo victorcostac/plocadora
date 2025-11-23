@@ -74,4 +74,12 @@ public class Titulo {
             this.atores.addAll(atores);
         }
     }
+
+    public void addItem(Item item){
+        itens.add(item);
+    }
+
+    public void removeItem(Item item){
+        itens.remove(item);
+    }
 }

@@ -1,16 +1,19 @@
 package com.devweb.plocadora.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Cliente {
 
     @Id
@@ -31,6 +34,9 @@ public abstract class Cliente {
 
     @Column(name = "ativo", nullable = false)
     private Boolean ativo;
+
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+    private List<Locacao> locacoes = new ArrayList<>();
 
     protected Cliente(Long numInscricao, String nome, LocalDate dtNascimento, String sexo, Boolean ativo) {
         this.numInscricao = Objects.requireNonNull(numInscricao, "numInscricao não pode ser nulo");

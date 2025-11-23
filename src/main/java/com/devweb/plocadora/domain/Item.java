@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -26,6 +28,9 @@ public class Item {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "titulo_id", nullable = false)
     private Titulo titulo;
+
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    private List<Locacao> locacoes = new ArrayList<>();
 
     public Item(Long numSerie, LocalDateTime dtAquisicao, TipoItem tipo, Titulo titulo) {
         this.numSerie = numSerie;

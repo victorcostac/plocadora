@@ -133,16 +133,18 @@ public class GlobalExceptionHandler {
 
     /**
      * Trata exceções de estado ilegal.
+     * Usado para operações que não podem ser realizadas no estado atual do recurso.
+     * Exemplo: tentar finalizar uma locação já finalizada.
      * 
      * @param ex exceção lançada
-     * @return ResponseEntity com HTTP 500 Internal Server Error
+     * @return ResponseEntity com HTTP 409 Conflict
      */
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<ErroRequisicaoApiModel> handleIllegalStateException(IllegalStateException ex) {
         ErroRequisicaoApiModel erro = new ErroRequisicaoApiModel();
-        erro.setStatus("500");
-        erro.setMensagem("Estado inválido: " + ex.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(erro);
+        erro.setStatus("409");
+        erro.setMensagem(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
     }
 
     /**

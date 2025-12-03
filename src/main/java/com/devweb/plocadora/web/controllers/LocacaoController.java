@@ -32,6 +32,23 @@ public class LocacaoController implements LocacaoApi {
 
     @Override
     public ResponseEntity<LocacaoCriadaApiModel> postLocacao(@Valid NovaLocacaoApiModel novaLocacaoApiModel) {
+        // Validações defensivas
+        if (novaLocacaoApiModel.getDtLocacao() == null) {
+            throw new IllegalArgumentException("Data de locação (dt_locacao) não pode ser nula");
+        }
+        if (novaLocacaoApiModel.getDtDevolucaoPrevista() == null) {
+            throw new IllegalArgumentException("Data de devolução prevista (dt_devolucao_prevista) não pode ser nula");
+        }
+        if (novaLocacaoApiModel.getValorCobrado() == null) {
+            throw new IllegalArgumentException("Valor cobrado (valor_cobrado) não pode ser nulo");
+        }
+        if (novaLocacaoApiModel.getIdItem() == null) {
+            throw new IllegalArgumentException("ID do item (id_item) não pode ser nulo");
+        }
+        if (novaLocacaoApiModel.getIdCliente() == null) {
+            throw new IllegalArgumentException("ID do cliente (id_cliente) não pode ser nulo");
+        }
+
         // Converte LocalDate para LocalDateTime (início do dia)
         LocalDateTime dtLocacao = novaLocacaoApiModel.getDtLocacao().atStartOfDay();
         LocalDateTime dtDevolucaoPrevista = novaLocacaoApiModel.getDtDevolucaoPrevista().atStartOfDay();
@@ -74,6 +91,12 @@ public class LocacaoController implements LocacaoApi {
             @Valid AtualizarLocacaoApiModel atualizarLocacaoApiModel) {
 
         Long id = Long.parseLong(locacaoId);
+
+        // Validação defensiva
+        if (atualizarLocacaoApiModel.getDtDevolucaoEfetiva() == null) {
+            throw new IllegalArgumentException("Data de devolução efetiva (dt_devolucao_efetiva) não pode ser nula");
+        }
+
         // Converte LocalDate para LocalDateTime com hora atual
         LocalDateTime dtDevolucaoEfetiva = atualizarLocacaoApiModel.getDtDevolucaoEfetiva().atTime(LocalTime.now());
 

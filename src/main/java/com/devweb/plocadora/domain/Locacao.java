@@ -29,13 +29,13 @@ public class Locacao {
     @Column(name = "dt_devolucao_prevista", nullable = false)
     private LocalDateTime dtDevolucaoPrevista;
 
-    @Column(name = "dt_devolucao_efetiva", nullable = false)
+    @Column(name = "dt_devolucao_efetiva", nullable = true)
     private LocalDateTime dtDevolucaoEfetiva;
 
     @Column(name = "valor_cobrado", nullable = false)
     private Double valorCobrado;
 
-    @Column(name = "multa_cobrada", nullable = false)
+    @Column(name = "multa_cobrada", nullable = true)
     private Double multaCobrada;
 
     @ManyToOne(fetch = FetchType.LAZY)

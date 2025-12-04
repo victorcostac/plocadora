@@ -34,7 +34,7 @@ services:
       POSTGRES_USER: plocadora_user
       POSTGRES_PASSWORD: plocadora_pass
     ports:
-      - "5430:5432"
+      - "5431:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:

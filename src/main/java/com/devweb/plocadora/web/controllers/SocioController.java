@@ -6,10 +6,13 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import com.devweb.plocadora.domain.Locacao;
 import com.devweb.plocadora.domain.Socio;
+import com.devweb.plocadora.services.ILocacaoService;
 import com.devweb.plocadora.services.ISocioService;
 import com.devweb.plocadora.web.api.SocioApi;
 import com.devweb.plocadora.web.model.AtualizarSocioApiModel;
+import com.devweb.plocadora.web.model.LocacaoApiModel;
 import com.devweb.plocadora.web.model.NovoSocioApiModel;
 import com.devweb.plocadora.web.model.SocioApiModel;
 import com.devweb.plocadora.web.model.SocioCriadoApiModel;
@@ -22,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class SocioController implements SocioApi {
 
     private final ISocioService socioService;
+    private final ILocacaoService locacaoService;
 
     @Override
     public ResponseEntity<Void> deleteSocioSocioId(String socioId) {
@@ -160,6 +164,45 @@ public class SocioController implements SocioApi {
         model.setCpf(socio.getCpf());
         model.setEndereco(socio.getEndereco());
         model.setTel(socio.getTel());
+        return model;
+    }
+
+    @Override
+    public ResponseEntity<List<LocacaoApiModel>> getLocacoesBySocio(String socioId) {
+        Long clienteId = Long.parseLong(socioId);
+
+        // Busca locações do cliente (service valida se existe)
+        List<Locacao> locacoes = locacaoService.getLocacoesByCliente(clienteId);
+
+        // Mapeia para API model
+        List<LocacaoApiModel> response = locacoes.stream()
+                .map(this::mapToLocacaoApiModel)
+                .toList();
+
+        return ResponseEntity.ok(response);
+    }
+
+    private LocacaoApiModel mapToLocacaoApiModel(Locacao locacao) {
+        LocacaoApiModel model = new LocacaoApiModel();
+        model.setId(locacao.getId().intValue());
+        model.setDtLocacao(locacao.getDtLocacao().toLocalDate());
+        model.setDtDevolucaoPrevista(locacao.getDtDevolucaoPrevista().toLocalDate());
+
+        if (locacao.getDtDevolucaoEfetiva() != null) {
+            model.setDtDevolucaoEfetiva(locacao.getDtDevolucaoEfetiva().toLocalDate());
+        }
+
+        model.setValorCobrado(locacao.getValorCobrado());
+        model.setMultaCobrado(locacao.getMultaCobrada() != null ? locacao.getMultaCobrada() : 0.0);
+
+        // IDs de Item e Cliente
+        if (locacao.getItem() != null) {
+            model.setIdItem(locacao.getItem().getId().intValue());
+        }
+        if (locacao.getCliente() != null) {
+            model.setIdSocio(locacao.getCliente().getId().intValue());
+        }
+
         return model;
     }
 

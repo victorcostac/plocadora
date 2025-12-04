@@ -40,7 +40,7 @@ public class NovaLocacaoApiModel {
 
   private Integer idItem;
 
-  private Integer idCliente;
+  private Integer idSocio;
 
   public NovaLocacaoApiModel dtLocacao(LocalDate dtLocacao) {
     this.dtLocacao = dtLocacao;
@@ -162,24 +162,24 @@ public class NovaLocacaoApiModel {
     this.idItem = idItem;
   }
 
-  public NovaLocacaoApiModel idCliente(Integer idCliente) {
-    this.idCliente = idCliente;
+  public NovaLocacaoApiModel idSocio(Integer idSocio) {
+    this.idSocio = idSocio;
     return this;
   }
 
   /**
-   * Get idCliente
-   * @return idCliente
+   * Get idSocio
+   * @return idSocio
   */
   
-  @Schema(name = "id_cliente", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("id_cliente")
-  public Integer getIdCliente() {
-    return idCliente;
+  @Schema(name = "id_socio", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("id_socio")
+  public Integer getIdSocio() {
+    return idSocio;
   }
 
-  public void setIdCliente(Integer idCliente) {
-    this.idCliente = idCliente;
+  public void setIdSocio(Integer idSocio) {
+    this.idSocio = idSocio;
   }
 
   @Override
@@ -197,12 +197,12 @@ public class NovaLocacaoApiModel {
         Objects.equals(this.valorCobrado, novaLocacao.valorCobrado) &&
         Objects.equals(this.multaCobrado, novaLocacao.multaCobrado) &&
         Objects.equals(this.idItem, novaLocacao.idItem) &&
-        Objects.equals(this.idCliente, novaLocacao.idCliente);
+        Objects.equals(this.idSocio, novaLocacao.idSocio);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dtLocacao, dtDevolucaoPrevista, dtDevolucaoEfetiva, valorCobrado, multaCobrado, idItem, idCliente);
+    return Objects.hash(dtLocacao, dtDevolucaoPrevista, dtDevolucaoEfetiva, valorCobrado, multaCobrado, idItem, idSocio);
   }
 
   @Override
@@ -215,7 +215,7 @@ public class NovaLocacaoApiModel {
     sb.append("    valorCobrado: ").append(toIndentedString(valorCobrado)).append("\n");
     sb.append("    multaCobrado: ").append(toIndentedString(multaCobrado)).append("\n");
     sb.append("    idItem: ").append(toIndentedString(idItem)).append("\n");
-    sb.append("    idCliente: ").append(toIndentedString(idCliente)).append("\n");
+    sb.append("    idSocio: ").append(toIndentedString(idSocio)).append("\n");
     sb.append("}");
     return sb.toString();
   }

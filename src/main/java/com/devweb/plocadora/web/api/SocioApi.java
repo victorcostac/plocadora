@@ -7,6 +7,7 @@ package com.devweb.plocadora.web.api;
 
 import com.devweb.plocadora.web.model.AtualizarSocioApiModel;
 import com.devweb.plocadora.web.model.ErroRequisicaoApiModel;
+import com.devweb.plocadora.web.model.LocacaoApiModel;
 import com.devweb.plocadora.web.model.NovoSocioApiModel;
 import com.devweb.plocadora.web.model.SocioApiModel;
 import com.devweb.plocadora.web.model.SocioCriadoApiModel;
@@ -69,6 +70,47 @@ public interface SocioApi {
     )
     
     ResponseEntity<Void> deleteSocioSocioId(
+        @Parameter(name = "socio_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("socio_id") String socioId
+    );
+
+
+    /**
+     * GET /socio/{socio_id}/locacoes : Buscar locações de um socio
+     * Retorna todas as locações de um socio específico (Sócio ou Dependente)
+     *
+     * @param socioId  (required)
+     * @return OK (status code 200)
+     *         or Bad Request (status code 400)
+     *         or Not Found (status code 404)
+     *         or Internal Server Error (status code 500)
+     */
+    @Operation(
+        operationId = "getLocacoesBySocio",
+        summary = "Buscar locações de um socio",
+        description = "Retorna todas as locações de um socio específico (Sócio ou Dependente)",
+        tags = {  },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "OK", content = {
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = LocacaoApiModel.class)))
+            }),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErroRequisicaoApiModel.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Not Found", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErroRequisicaoApiModel.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErroRequisicaoApiModel.class))
+            })
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/socio/{socio_id}/locacoes",
+        produces = { "application/json" }
+    )
+    
+    ResponseEntity<List<LocacaoApiModel>> getLocacoesBySocio(
         @Parameter(name = "socio_id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("socio_id") String socioId
     );
 

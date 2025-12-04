@@ -45,8 +45,8 @@ public class LocacaoController implements LocacaoApi {
         if (novaLocacaoApiModel.getIdItem() == null) {
             throw new IllegalArgumentException("ID do item (id_item) não pode ser nulo");
         }
-        if (novaLocacaoApiModel.getIdCliente() == null) {
-            throw new IllegalArgumentException("ID do cliente (id_cliente) não pode ser nulo");
+        if (novaLocacaoApiModel.getIdSocio() == null) {
+            throw new IllegalArgumentException("ID do sócio (id_socio) não pode ser nulo");
         }
 
         // Converte LocalDate para LocalDateTime (início do dia)
@@ -59,7 +59,7 @@ public class LocacaoController implements LocacaoApi {
                 dtDevolucaoPrevista,
                 novaLocacaoApiModel.getValorCobrado(),
                 novaLocacaoApiModel.getIdItem().longValue(),
-                novaLocacaoApiModel.getIdCliente().longValue());
+                novaLocacaoApiModel.getIdSocio().longValue());
 
         // Mapear resposta
         LocacaoCriadaApiModel response = mapToLocacaoCriadaApiModel(locacao);
@@ -130,12 +130,12 @@ public class LocacaoController implements LocacaoApi {
         model.setValorCobrado(locacao.getValorCobrado());
         model.setMultaCobrado(locacao.getMultaCobrada() != null ? locacao.getMultaCobrada() : 0.0);
 
-        // IDs de Item e Cliente
+        // IDs de Item e Socio
         if (locacao.getItem() != null) {
             model.setIdItem(locacao.getItem().getId().intValue());
         }
         if (locacao.getCliente() != null) {
-            model.setIdCliente(locacao.getCliente().getId().intValue());
+            model.setIdSocio(locacao.getCliente().getId().intValue());
         }
 
         return model;
@@ -152,12 +152,12 @@ public class LocacaoController implements LocacaoApi {
         model.setValorCobrado(locacao.getValorCobrado());
         model.setMultaCobrado(0.0);
 
-        // IDs de Item e Cliente
+        // IDs de Item e Socio
         if (locacao.getItem() != null) {
             model.setIdItem(locacao.getItem().getId().intValue());
         }
         if (locacao.getCliente() != null) {
-            model.setIdCliente(locacao.getCliente().getId().intValue());
+            model.setIdSocio(locacao.getCliente().getId().intValue());
         }
 
         return model;

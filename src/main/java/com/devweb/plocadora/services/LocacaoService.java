@@ -35,7 +35,7 @@ public class LocacaoService implements ILocacaoService {
 
     @Override
     public Locacao createLocacao(LocalDateTime dtLocacao, LocalDateTime dtDevolucaoPrevista,
-            Double valorCobrado, Long itemId, Long clienteId){
+            Double valorCobrado, Long itemId, Long clienteId) {
 
         // Validações de entrada
         if (dtLocacao == null) {
@@ -57,10 +57,12 @@ public class LocacaoService implements ILocacaoService {
 
         // Buscar cliente (pode ser Socio ou Dependente)
         Cliente cliente = findCliente(clienteId);
-    
-        for(Locacao locacao: cliente.getLocacoes()){
-            if(locacao.getDtDevolucaoEfetiva() == null && locacao.getDtDevolucaoPrevista().isBefore(LocalDateTime.now())){
-                throw new IllegalStateException("Cliente não pode fazer mais alocações. Deve se regularizar seu débito");
+
+        for (Locacao locacao : cliente.getLocacoes()) {
+            if (locacao.getDtDevolucaoEfetiva() == null
+                    && locacao.getDtDevolucaoPrevista().isBefore(LocalDateTime.now())) {
+                throw new IllegalStateException(
+                        "Cliente não pode fazer mais alocações. Deve se regularizar seu débito");
             }
         }
 
@@ -119,6 +121,16 @@ public class LocacaoService implements ILocacaoService {
             throw new ResourceNotFoundException("Locação", id);
         }
         locacaoRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Locacao> getLocacoesByCliente(Long clienteId) {
+        // Buscar cliente para validar que existe
+        Cliente cliente = findCliente(clienteId);
+
+        // Retornar locações do cliente
+        return cliente.getLocacoes();
     }
 
     /**

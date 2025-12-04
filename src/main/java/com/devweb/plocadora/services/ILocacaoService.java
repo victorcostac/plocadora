@@ -61,5 +61,12 @@ public interface ILocacaoService {
      */
     void deleteLocacao(Long id);
 
-    
+    /**
+     * Busca todas as locações de um cliente específico.
+     *
+     * @param clienteId ID do cliente (Sócio ou Dependente)
+     * @return lista de locações do cliente
+     * @throws ResourceNotFoundException se o cliente não existir
+     */
+    List<Locacao> getLocacoesByCliente(Long clienteId);
 }

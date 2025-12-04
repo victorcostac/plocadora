@@ -42,7 +42,7 @@ public class LocacaoApiModel {
 
   private Integer idItem;
 
-  private Integer idCliente;
+  private Integer idSocio;
 
   public LocacaoApiModel id(Integer id) {
     this.id = id;
@@ -184,24 +184,24 @@ public class LocacaoApiModel {
     this.idItem = idItem;
   }
 
-  public LocacaoApiModel idCliente(Integer idCliente) {
-    this.idCliente = idCliente;
+  public LocacaoApiModel idSocio(Integer idSocio) {
+    this.idSocio = idSocio;
     return this;
   }
 
   /**
-   * Get idCliente
-   * @return idCliente
+   * Get idSocio
+   * @return idSocio
   */
   
-  @Schema(name = "id_cliente", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("id_cliente")
-  public Integer getIdCliente() {
-    return idCliente;
+  @Schema(name = "id_socio", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("id_socio")
+  public Integer getIdSocio() {
+    return idSocio;
   }
 
-  public void setIdCliente(Integer idCliente) {
-    this.idCliente = idCliente;
+  public void setIdSocio(Integer idSocio) {
+    this.idSocio = idSocio;
   }
 
   @Override
@@ -220,12 +220,12 @@ public class LocacaoApiModel {
         Objects.equals(this.valorCobrado, locacao.valorCobrado) &&
         Objects.equals(this.multaCobrado, locacao.multaCobrado) &&
         Objects.equals(this.idItem, locacao.idItem) &&
-        Objects.equals(this.idCliente, locacao.idCliente);
+        Objects.equals(this.idSocio, locacao.idSocio);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, dtLocacao, dtDevolucaoPrevista, dtDevolucaoEfetiva, valorCobrado, multaCobrado, idItem, idCliente);
+    return Objects.hash(id, dtLocacao, dtDevolucaoPrevista, dtDevolucaoEfetiva, valorCobrado, multaCobrado, idItem, idSocio);
   }
 
   @Override
@@ -239,7 +239,7 @@ public class LocacaoApiModel {
     sb.append("    valorCobrado: ").append(toIndentedString(valorCobrado)).append("\n");
     sb.append("    multaCobrado: ").append(toIndentedString(multaCobrado)).append("\n");
     sb.append("    idItem: ").append(toIndentedString(idItem)).append("\n");
-    sb.append("    idCliente: ").append(toIndentedString(idCliente)).append("\n");
+    sb.append("    idSocio: ").append(toIndentedString(idSocio)).append("\n");
     sb.append("}");
     return sb.toString();
   }

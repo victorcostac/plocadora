@@ -60,4 +60,6 @@ public interface ILocacaoService {
      * @throws ResourceNotFoundException se a locação não existir
      */
     void deleteLocacao(Long id);
+
+    
 }

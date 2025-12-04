@@ -23,19 +23,19 @@ public class Locacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "dt_locacao", nullable = false, unique = true)
+    @Column(name = "dt_locacao", nullable = false)
     private LocalDateTime dtLocacao;
 
     @Column(name = "dt_devolucao_prevista", nullable = false)
     private LocalDateTime dtDevolucaoPrevista;
 
-    @Column(name = "dt_devolucao_efetiva", nullable = true)
+    @Column(name = "dt_devolucao_efetiva")
     private LocalDateTime dtDevolucaoEfetiva;
 
     @Column(name = "valor_cobrado", nullable = false)
     private Double valorCobrado;
 
-    @Column(name = "multa_cobrada", nullable = true)
+    @Column(name = "multa_cobrada")
     private Double multaCobrada;
 
     @ManyToOne(fetch = FetchType.LAZY)
